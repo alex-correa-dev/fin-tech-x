@@ -2,6 +2,7 @@ import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import { authService } from '../../services/auth';
 import ChatInterface from '../ChatInterface/ChatInterface';
+import ThemeToggle from '../ThemeToggle/ThemeToggle';
 import styles from './Dashboard.module.scss';
 
 interface DashboardProps {
@@ -33,6 +34,7 @@ const Dashboard: React.FC<DashboardProps> = ({ onLogout }) => {
               <span className={styles.userName}>{user?.name || 'Usuário'}</span>
               <span className={styles.userEmail}>{user?.email}</span>
             </div>
+            <ThemeToggle />
             <button onClick={handleLogout} className={styles.logoutBtn}>
               Sair
             </button>

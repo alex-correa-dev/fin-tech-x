@@ -16,8 +16,16 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  background: $gradient-primary;
-  min-height: 100vh;
+  background: $bg-light;
+  color: $text-primary;
+  transition: background-color $transition-base, color $transition-base;
+}
+
+* {
+  transition: background-color $transition-base, 
+              border-color $transition-base,
+              color $transition-base,
+              box-shadow $transition-base;
 }
 
 code {
@@ -97,7 +105,7 @@ code {
 }
 
 .text-gradient {
-  background: $gradient-primary;
+  @include gradient-primary;
   -webkit-background-clip: text;
   background-clip: text;
   color: transparent;

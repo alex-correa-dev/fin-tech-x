@@ -1,25 +1,75 @@
-// Primary Colors
-$primary: #667eea;
-$primary-dark: #5a67d8;
-$primary-light: #7c8ff0;
-$secondary: #764ba2;
+// Cores que mudam com o tema (usando CSS variables)
+:root {
+  // Light mode (padrão)
+  --primary: #667eea;
+  --primary-dark: #5a67d8;
+  --primary-light: #7c8ff0;
+  --secondary: #764ba2;
+  
+  --success: #48bb78;
+  --danger: #f56565;
+  --warning: #ed8936;
+  --info: #4299e1;
+  
+  --dark: #2d3748;
+  --gray: #718096;
+  --gray-light: #a0aec0;
+  --light-gray: #e2e8f0;
+  --white: #ffffff;
+  --bg-light: #f7f9fc;
+  --bg-dark: #1a202c;
+  
+  // Cores de superfície
+  --surface-primary: #ffffff;
+  --surface-secondary: #f7f9fc;
+  --surface-tertiary: #edf2f7;
+  
+  // Cores de texto
+  --text-primary: #2d3748;
+  --text-secondary: #718096;
+  --text-disabled: #a0aec0;
+  
+  // Cores de borda
+  --border-light: #e2e8f0;
+  --border-medium: #cbd5e0;
+}
 
-// State Colors
-$success: #48bb78;
-$danger: #f56565;
-$warning: #ed8936;
-$info: #4299e1;
+// Dark mode
+.dark-mode {
+  --primary: #8b9dff;
+  --primary-dark: #7c8ff0;
+  --primary-light: #9baeff;
+  --secondary: #a855f7;
+  
+  --success: #68d391;
+  --danger: #fc8181;
+  --warning: #fbbf24;
+  --info: #60a5fa;
+  
+  --dark: #e2e8f0;
+  --gray: #cbd5e0;
+  --gray-light: #a0aec0;
+  --light-gray: #4a5568;
+  --white: #1a202c;
+  --bg-light: #0f172a;
+  --bg-dark: #0a0f1a;
+  
+  // Cores de superfície dark
+  --surface-primary: #1e293b;
+  --surface-secondary: #0f172a;
+  --surface-tertiary: #334155;
+  
+  // Cores de texto dark
+  --text-primary: #f1f5f9;
+  --text-secondary: #cbd5e0;
+  --text-disabled: #64748b;
+  
+  // Cores de borda dark
+  --border-light: #334155;
+  --border-medium: #475569;
+}
 
-// Neutral Colors
-$dark: #2d3748;
-$gray: #718096;
-$gray-light: #a0aec0;
-$light-gray: #e2e8f0;
-$white: #ffffff;
-$bg-light: #f7f9fc;
-$bg-dark: #1a202c;
-
-// Spacing
+// Espaçamentos
 $spacing-xs: 4px;
 $spacing-sm: 8px;
 $spacing-md: 16px;
@@ -27,20 +77,26 @@ $spacing-lg: 24px;
 $spacing-xl: 32px;
 $spacing-xxl: 48px;
 
-// Edges
+// Bordas
 $border-radius-sm: 6px;
 $border-radius-md: 10px;
 $border-radius-lg: 15px;
 $border-radius-xl: 20px;
 $border-radius-full: 9999px;
 
-// Shadows
+// Sombras
 $shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
 $shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
 $shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
 $shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
 
-// Transitions
+// Sombras para dark mode
+$shadow-dark-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.3);
+$shadow-dark-md: 0 4px 6px -1px rgba(0, 0, 0, 0.4);
+$shadow-dark-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.4);
+$shadow-dark-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.4);
+
+// Transições
 $transition-fast: 150ms ease;
 $transition-base: 250ms ease;
 $transition-slow: 350ms ease;
@@ -50,7 +106,68 @@ $breakpoint-mobile: 768px;
 $breakpoint-tablet: 1024px;
 $breakpoint-desktop: 1280px;
 
-// Gradients
-$gradient-primary: linear-gradient(135deg, $primary 0%, $secondary 100%);
-$gradient-success: linear-gradient(135deg, $success 0%, #38b2ac 100%);
-$gradient-danger: linear-gradient(135deg, $danger 0%, #ed64a6 100%);
+// GRADIENTES (variáveis)
+$gradient-primary: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+$gradient-success: linear-gradient(135deg, var(--success) 0%, #38b2ac 100%);
+$gradient-danger: linear-gradient(135deg, var(--danger) 0%, #ed64a6 100%);
+
+// Mixins de gradiente
+@mixin gradient-primary {
+  background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+}
+
+@mixin gradient-success {
+  background: linear-gradient(135deg, var(--success) 0%, #38b2ac 100%);
+}
+
+@mixin gradient-danger {
+  background: linear-gradient(135deg, var(--danger) 0%, #ed64a6 100%);
+}
+
+// Mixins de sombra
+@mixin shadow-sm {
+  box-shadow: $shadow-sm;
+}
+
+@mixin shadow-md {
+  box-shadow: $shadow-md;
+}
+
+@mixin shadow-lg {
+  box-shadow: $shadow-lg;
+}
+
+@mixin shadow-xl {
+  box-shadow: $shadow-xl;
+}
+
+// Cores (usando variáveis CSS)
+$primary: var(--primary);
+$primary-dark: var(--primary-dark);
+$primary-light: var(--primary-light);
+$secondary: var(--secondary);
+$success: var(--success);
+$danger: var(--danger);
+$warning: var(--warning);
+$info: var(--info);
+$dark: var(--dark);
+$gray: var(--gray);
+$gray-light: var(--gray-light);
+$light-gray: var(--light-gray);
+$white: var(--white);
+$bg-light: var(--bg-light);
+$bg-dark: var(--bg-dark);
+
+// Cores de texto
+$text-primary: var(--text-primary);
+$text-secondary: var(--text-secondary);
+$text-disabled: var(--text-disabled);
+
+// Cores de superfície
+$surface-primary: var(--surface-primary);
+$surface-secondary: var(--surface-secondary);
+$surface-tertiary: var(--surface-tertiary);
+
+// Cores de borda
+$border-light: var(--border-light);
+$border-medium: var(--border-medium);

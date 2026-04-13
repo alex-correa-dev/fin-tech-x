@@ -1,0 +1,45 @@
+@import '../../styles/variables';
+
+.toggle {
+  background: $surface-tertiary;
+  border: 1px solid $border-light;
+  border-radius: $border-radius-full;
+  cursor: pointer;
+  padding: $spacing-xs;
+  width: 48px;
+  height: 48px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: $transition-base;
+
+  &:hover {
+    transform: scale(1.05);
+    border-color: var(--primary);
+  }
+}
+
+.toggleSlider {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+}
+
+.icon {
+  font-size: 20px;
+  transition: $transition-base;
+}
+
+.light {
+  .icon {
+    transform: rotate(0deg);
+  }
+}
+
+.dark {
+  .icon {
+    transform: rotate(360deg);
+  }
+}
