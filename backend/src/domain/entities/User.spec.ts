@@ -4,7 +4,7 @@ describe('User Entity', () => {
   describe('create', () => {
     it('should create a valid user', () => {
       const user = User.create('John Doe', 'john@email.com', '123456');
-      
+
       expect(user).toBeInstanceOf(User);
       expect(user.name).toBe('John Doe');
       expect(user.email).toBe('john@email.com');
@@ -47,12 +47,12 @@ describe('User Entity', () => {
     it('should return user without password', () => {
       const user = new User(1, 'John Doe', 'john@email.com', 'hashed123');
       const json = user.toJSON();
-      
+
       expect(json).toEqual({
         id: 1,
         name: 'John Doe',
         email: 'john@email.com',
-        createdAt: user.createdAt
+        createdAt: user.createdAt,
       });
       expect(json).not.toHaveProperty('password');
     });

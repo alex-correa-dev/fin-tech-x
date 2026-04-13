@@ -11,7 +11,7 @@ export const errorHandler = (
 
   const response: IApiResponse<null> = {
     success: false,
-    error: err.message
+    error: err.message,
   };
 
   if (err.message.includes('obrigatório') || err.message.includes('inválido')) {

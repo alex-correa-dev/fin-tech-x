@@ -29,7 +29,7 @@ export class PostgresChatRepository implements IChatRepository {
     const result = await this.database.query(query, [userId, limit]);
 
     return result.rows.map(
-      row => new ChatMessage(row.id, row.user_id, row.question, row.answer, row.created_at)
+      (row) => new ChatMessage(row.id, row.user_id, row.question, row.answer, row.created_at)
     );
   }
 
@@ -37,7 +37,9 @@ export class PostgresChatRepository implements IChatRepository {
     const query = 'SELECT * FROM chat_history WHERE id = $1';
     const result = await this.database.query(query, [id]);
 
-    if (result.rows.length === 0) return null;
+    if (result.rows.length === 0) {
+      return null;
+    }
 
     const row = result.rows[0];
     return new ChatMessage(row.id, row.user_id, row.question, row.answer, row.created_at);

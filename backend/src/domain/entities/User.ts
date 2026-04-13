@@ -40,7 +40,7 @@ export class User implements IUser {
       id: this.id,
       name: this.name,
       email: this.email,
-      createdAt: this.createdAt
+      createdAt: this.createdAt,
     };
   }
 

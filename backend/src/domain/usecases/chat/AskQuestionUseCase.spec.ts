@@ -6,13 +6,13 @@ const mockChatRepository = {
   findByUserId: jest.fn(),
   findById: jest.fn(),
   deleteOldMessages: jest.fn(),
-  deleteAll: jest.fn()
+  deleteAll: jest.fn(),
 };
 
 const mockAIProvider = {
   ask: jest.fn(),
   getModelName: jest.fn(),
-  getVersion: jest.fn()
+  getVersion: jest.fn(),
 };
 
 const SYSTEM_PROMPT = 'You are a helpful assistant for FinTechX';
@@ -21,11 +21,7 @@ describe('AskQuestionUseCase', () => {
   let askQuestionUseCase: AskQuestionUseCase;
 
   beforeEach(() => {
-    askQuestionUseCase = new AskQuestionUseCase(
-      mockChatRepository,
-      mockAIProvider,
-      SYSTEM_PROMPT
-    );
+    askQuestionUseCase = new AskQuestionUseCase(mockChatRepository, mockAIProvider, SYSTEM_PROMPT);
     jest.clearAllMocks();
   });
 
@@ -33,11 +29,11 @@ describe('AskQuestionUseCase', () => {
     const input = {
       userId: 1,
       question: 'What are your hours?',
-      userName: 'John'
+      userName: 'John',
     };
 
     const expectedAnswer = 'We are open Monday to Friday 9am-6pm';
-    
+
     mockAIProvider.ask.mockResolvedValue(expectedAnswer);
     mockChatRepository.save.mockResolvedValue(
       new ChatMessage(1, input.userId, input.question, expectedAnswer)
@@ -58,7 +54,7 @@ describe('AskQuestionUseCase', () => {
     const input = {
       userId: 1,
       question: '   ',
-      userName: 'John'
+      userName: 'John',
     };
 
     await expect(askQuestionUseCase.execute(input)).rejects.toThrow(
@@ -69,7 +65,7 @@ describe('AskQuestionUseCase', () => {
   it('should work without userName', async () => {
     const input = {
       userId: 1,
-      question: 'What are your hours?'
+      question: 'What are your hours?',
     };
 
     mockAIProvider.ask.mockResolvedValue('Answer without personalization');

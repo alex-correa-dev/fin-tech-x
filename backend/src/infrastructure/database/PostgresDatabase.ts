@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 import { Pool, PoolConfig, QueryResult } from 'pg';
 import config from '../../config/env';
 
@@ -45,7 +46,7 @@ export class PostgresDatabase {
       )`,
       `CREATE INDEX IF NOT EXISTS idx_user_email ON users(email)`,
       `CREATE INDEX IF NOT EXISTS idx_chat_user_id ON chat_history(user_id)`,
-      `CREATE INDEX IF NOT EXISTS idx_chat_created_at ON chat_history(created_at)`
+      `CREATE INDEX IF NOT EXISTS idx_chat_created_at ON chat_history(created_at)`,
     ];
 
     for (const query of queries) {
@@ -54,7 +55,7 @@ export class PostgresDatabase {
     console.log('✅ Tabelas criadas/verificadas');
   }
 
-  async query(text: string, params?: any[]): Promise<QueryResult> {
+  async query(text: string, params?: unknown[]): Promise<QueryResult> {
     return this.pool.query(text, params);
   }
 

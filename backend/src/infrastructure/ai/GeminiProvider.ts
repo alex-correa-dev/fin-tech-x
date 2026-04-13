@@ -21,21 +21,18 @@ export class GeminiProvider implements IAIProvider {
       generationConfig: {
         temperature: config.temperature || 0.7,
         maxOutputTokens: config.maxOutputTokens || 500,
-      }
+      },
     });
   }
 
   async ask(question: string, context?: string): Promise<string> {
     try {
-      const prompt = context 
-        ? `${context}\n\nPergunta do usuário: ${question}`
-        : question;
+      const prompt = context ? `${context}\n\nPergunta do usuário: ${question}` : question;
 
       const result = await this.model.generateContent(prompt);
       const response = await result.response;
       return response.text();
-    } catch (error) {
-      console.error('Gemini API Error:', error);
+    } catch {
       throw new Error('Erro ao processar pergunta na IA');
     }
   }

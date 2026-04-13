@@ -10,7 +10,7 @@ export class GeminiService {
   getModelInfo(): { name: string; version: string } {
     return {
       name: this.aiProvider.getModelName(),
-      version: this.aiProvider.getVersion()
+      version: this.aiProvider.getVersion(),
     };
   }
 }

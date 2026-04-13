@@ -18,13 +18,13 @@ export class AuthController {
       const result = await this.registerUseCase.execute({
         name: dto.name,
         email: dto.email,
-        password: dto.password
+        password: dto.password,
       });
 
       const response: IApiResponse<IAuthResponse> = {
         success: true,
         message: 'Usuário cadastrado com sucesso',
-        data: result
+        data: result,
       };
 
       res.status(201).json(response);
@@ -43,7 +43,7 @@ export class AuthController {
       const response: IApiResponse<IAuthResponse> = {
         success: true,
         message: 'Login realizado com sucesso',
-        data: result
+        data: result,
       };
 
       res.json(response);

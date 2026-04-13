@@ -7,24 +7,21 @@ const mockUserRepository = {
   findById: jest.fn(),
   update: jest.fn(),
   delete: jest.fn(),
-  exists: jest.fn()
+  exists: jest.fn(),
 };
 
 const mockAuthService = {
   hashPassword: jest.fn(),
   comparePassword: jest.fn(),
   generateToken: jest.fn(),
-  verifyToken: jest.fn()
+  verifyToken: jest.fn(),
 };
 
 describe('RegisterUserUseCase', () => {
   let registerUseCase: RegisterUserUseCase;
 
   beforeEach(() => {
-    registerUseCase = new RegisterUserUseCase(
-      mockUserRepository,
-      mockAuthService
-    );
+    registerUseCase = new RegisterUserUseCase(mockUserRepository, mockAuthService);
     jest.clearAllMocks();
   });
 
@@ -32,7 +29,7 @@ describe('RegisterUserUseCase', () => {
     const input = {
       name: 'John Doe',
       email: 'john@example.com',
-      password: '123456'
+      password: '123456',
     };
 
     mockUserRepository.findByEmail.mockResolvedValue(null);
@@ -56,7 +53,7 @@ describe('RegisterUserUseCase', () => {
     const input = {
       name: 'John Doe',
       email: 'existing@example.com',
-      password: '123456'
+      password: '123456',
     };
 
     mockUserRepository.findByEmail.mockResolvedValue({ id: 1, email: input.email });
@@ -71,7 +68,7 @@ describe('RegisterUserUseCase', () => {
     const input = {
       name: 'Jo',
       email: 'john@example.com',
-      password: '123456'
+      password: '123456',
     };
 
     mockUserRepository.findByEmail.mockResolvedValue(null);

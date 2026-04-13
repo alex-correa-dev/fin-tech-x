@@ -6,7 +6,7 @@ const mockDatabase = {
   query: mockQuery,
   getPool: jest.fn().mockReturnValue({}),
   connect: jest.fn(),
-  disconnect: jest.fn()
+  disconnect: jest.fn(),
 };
 
 describe('PostgresUserRepository', () => {
@@ -23,9 +23,9 @@ describe('PostgresUserRepository', () => {
       id: 1,
       name: 'John Doe',
       email: 'john@example.com',
-      created_at: new Date()
+      created_at: new Date(),
     };
-    
+
     mockQuery.mockResolvedValue({ rows: [expectedRow] });
 
     const savedUser = await repository.save(user);
@@ -42,19 +42,18 @@ describe('PostgresUserRepository', () => {
       name: 'John Doe',
       email: 'john@example.com',
       password: 'hashed123',
-      created_at: new Date()
+      created_at: new Date(),
     };
-    
+
     mockQuery.mockResolvedValue({ rows: [expectedRow] });
 
     const user = await repository.findByEmail('john@example.com');
 
     expect(user).toBeInstanceOf(User);
     expect(user?.email).toBe('john@example.com');
-    expect(mockQuery).toHaveBeenCalledWith(
-      'SELECT * FROM users WHERE email = $1',
-      ['john@example.com']
-    );
+    expect(mockQuery).toHaveBeenCalledWith('SELECT * FROM users WHERE email = $1', [
+      'john@example.com',
+    ]);
   });
 
   it('should return null when user not found by email', async () => {
@@ -71,9 +70,9 @@ describe('PostgresUserRepository', () => {
       name: 'John Doe',
       email: 'john@example.com',
       password: 'hashed123',
-      created_at: new Date()
+      created_at: new Date(),
     };
-    
+
     mockQuery.mockResolvedValue({ rows: [expectedRow] });
 
     const user = await repository.findById(1);
@@ -88,9 +87,8 @@ describe('PostgresUserRepository', () => {
     const exists = await repository.exists('john@example.com');
 
     expect(exists).toBe(true);
-    expect(mockQuery).toHaveBeenCalledWith(
-      'SELECT EXISTS(SELECT 1 FROM users WHERE email = $1)',
-      ['john@example.com']
-    );
+    expect(mockQuery).toHaveBeenCalledWith('SELECT EXISTS(SELECT 1 FROM users WHERE email = $1)', [
+      'john@example.com',
+    ]);
   });
 });

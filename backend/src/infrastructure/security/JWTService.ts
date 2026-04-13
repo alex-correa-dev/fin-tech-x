@@ -14,15 +14,16 @@ export class JWTService implements ITokenService {
 
   generateToken(payload: ITokenPayload): string {
     const options: jwt.SignOptions = {
-      expiresIn: this.expiresIn as jwt.SignOptions['expiresIn']
+      expiresIn: this.expiresIn as jwt.SignOptions['expiresIn'],
     };
-    
+
     return jwt.sign(payload, this.secret, options);
   }
+
   verifyToken(token: string): ITokenPayload {
     try {
       return jwt.verify(token, this.secret) as ITokenPayload;
-    } catch (error) {
+    } catch {
       throw new Error('Token inválido ou expirado');
     }
   }

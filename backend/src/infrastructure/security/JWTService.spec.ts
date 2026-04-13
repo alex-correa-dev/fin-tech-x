@@ -13,11 +13,11 @@ describe('JWTService', () => {
     const payload = {
       userId: 1,
       email: 'test@example.com',
-      name: 'Test User'
+      name: 'Test User',
     };
 
     const token = jwtService.generateToken(payload);
-    
+
     expect(token).toBeDefined();
     expect(typeof token).toBe('string');
     expect(token.split('.')).toHaveLength(3);
@@ -27,12 +27,12 @@ describe('JWTService', () => {
     const payload = {
       userId: 1,
       email: 'test@example.com',
-      name: 'Test User'
+      name: 'Test User',
     };
 
     const token = jwtService.generateToken(payload);
     const decoded = jwtService.verifyToken(token);
-    
+
     expect(decoded.userId).toBe(payload.userId);
     expect(decoded.email).toBe(payload.email);
     expect(decoded.name).toBe(payload.name);
@@ -40,19 +40,17 @@ describe('JWTService', () => {
 
   it('should throw error for invalid token', () => {
     const invalidToken = 'invalid.token.here';
-    
-    expect(() => jwtService.verifyToken(invalidToken)).toThrow(
-      'Token inválido ou expirado'
-    );
+
+    expect(() => jwtService.verifyToken(invalidToken)).toThrow('Token inválido ou expirado');
   });
 
   it('should throw error for expired token', async () => {
     const shortExpiryJWT = new JWTService(secret, '1ms');
     const payload = { userId: 1, email: 'test@example.com', name: 'Test' };
     const token = shortExpiryJWT.generateToken(payload);
-    
-    await new Promise(resolve => setTimeout(resolve, 10));
-    
+
+    await new Promise((resolve) => setTimeout(resolve, 10));
+
     expect(() => shortExpiryJWT.verifyToken(token)).toThrow();
   });
 });

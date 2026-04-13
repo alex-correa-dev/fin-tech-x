@@ -21,8 +21,20 @@ describe('GetChatHistoryUseCase', () => {
   it('should return chat history for a user with default limit', async () => {
     const userId = 1;
     const mockMessages = [
-      new ChatMessage(1, userId, 'What are your hours?', 'We are open 9-6', new Date('2024-01-01T10:00:00Z')),
-      new ChatMessage(2, userId, 'Where are you located?', 'We are in Sao Paulo', new Date('2024-01-01T11:00:00Z')),
+      new ChatMessage(
+        1,
+        userId,
+        'What are your hours?',
+        'We are open 9-6',
+        new Date('2024-01-01T10:00:00Z')
+      ),
+      new ChatMessage(
+        2,
+        userId,
+        'Where are you located?',
+        'We are in Sao Paulo',
+        new Date('2024-01-01T11:00:00Z')
+      ),
     ];
 
     mockChatRepository.findByUserId.mockResolvedValue(mockMessages);
@@ -48,9 +60,7 @@ describe('GetChatHistoryUseCase', () => {
   it('should return chat history with custom limit', async () => {
     const userId = 1;
     const customLimit = 10;
-    const mockMessages = [
-      new ChatMessage(1, userId, 'Question 1', 'Answer 1', new Date()),
-    ];
+    const mockMessages = [new ChatMessage(1, userId, 'Question 1', 'Answer 1', new Date())];
 
     mockChatRepository.findByUserId.mockResolvedValue(mockMessages);
 
@@ -76,14 +86,16 @@ describe('GetChatHistoryUseCase', () => {
 
     mockChatRepository.findByUserId.mockRejectedValue(new Error('Database connection failed'));
 
-    await expect(getChatHistoryUseCase.execute(userId)).rejects.toThrow('Database connection failed');
+    await expect(getChatHistoryUseCase.execute(userId)).rejects.toThrow(
+      'Database connection failed'
+    );
   });
 
   it('should return messages in correct order (by timestamp)', async () => {
     const userId = 1;
     const earlierDate = new Date('2024-01-01T10:00:00Z');
     const laterDate = new Date('2024-01-01T11:00:00Z');
-    
+
     const mockMessages = [
       new ChatMessage(1, userId, 'First question', 'First answer', earlierDate),
       new ChatMessage(2, userId, 'Second question', 'Second answer', laterDate),
@@ -100,9 +112,7 @@ describe('GetChatHistoryUseCase', () => {
   it('should map all message properties correctly', async () => {
     const userId = 1;
     const timestamp = new Date('2024-01-01T10:00:00Z');
-    const mockMessages = [
-      new ChatMessage(5, userId, 'Test question', 'Test answer', timestamp),
-    ];
+    const mockMessages = [new ChatMessage(5, userId, 'Test question', 'Test answer', timestamp)];
 
     mockChatRepository.findByUserId.mockResolvedValue(mockMessages);
 

@@ -23,7 +23,9 @@ export class PostgresUserRepository implements IUserRepository {
     const query = 'SELECT * FROM users WHERE email = $1';
     const result = await this.database.query(query, [email]);
 
-    if (result.rows.length === 0) return null;
+    if (result.rows.length === 0) {
+      return null;
+    }
 
     const row = result.rows[0];
     return new User(row.id, row.name, row.email, row.password, row.created_at);
@@ -33,7 +35,9 @@ export class PostgresUserRepository implements IUserRepository {
     const query = 'SELECT * FROM users WHERE id = $1';
     const result = await this.database.query(query, [id]);
 
-    if (result.rows.length === 0) return null;
+    if (result.rows.length === 0) {
+      return null;
+    }
 
     const row = result.rows[0];
     return new User(row.id, row.name, row.email, '', row.created_at);

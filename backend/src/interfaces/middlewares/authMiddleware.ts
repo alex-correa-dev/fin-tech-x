@@ -13,7 +13,7 @@ export const authMiddleware = (tokenService: ITokenService) => {
     if (!authHeader || !authHeader.startsWith('Bearer ')) {
       res.status(401).json({
         success: false,
-        error: 'Token não fornecido'
+        error: 'Token não fornecido',
       });
       return;
     }
@@ -27,7 +27,7 @@ export const authMiddleware = (tokenService: ITokenService) => {
     } catch (error) {
       res.status(401).json({
         success: false,
-        error: error instanceof Error ? error.message : 'Token inválido'
+        error: error instanceof Error ? error.message : 'Token inválido',
       });
     }
   };

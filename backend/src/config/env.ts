@@ -36,24 +36,24 @@ export interface Config {
 const config: Config = {
   server: {
     port: parseInt(process.env.PORT || '5000'),
-    env: process.env.NODE_ENV || 'development'
+    env: process.env.NODE_ENV || 'development',
   },
   database: {
     user: process.env.DB_USER || '',
     password: process.env.DB_PASSWORD || '',
     host: process.env.DB_HOST || 'localhost',
     port: parseInt(process.env.DB_PORT || '5432'),
-    database: process.env.DB_NAME || 'fintechx_db'
+    database: process.env.DB_NAME || 'fintechx_db',
   },
   jwt: {
     secret: process.env.JWT_SECRET || 'default_secret_change_me',
-    expiresIn: '7d'
+    expiresIn: '7d',
   },
   ai: {
     provider: 'gemini',
     apiKey: process.env.GEMINI_API_KEY || '',
-    modelName: process.env.GEMINI_MODEL_NAME || 'gemini-2.0-flash'
-  }
+    modelName: process.env.GEMINI_MODEL_NAME || 'gemini-2.0-flash',
+  },
 };
 
 if (!config.database.user || !config.database.password) {

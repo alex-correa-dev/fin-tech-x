@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 import express, { Application, Response } from 'express';
 import cors from 'cors';
 import config from '../../config/env';
@@ -23,6 +24,7 @@ import { errorHandler } from '../../interfaces/middlewares/errorHandler';
 
 import { authRoutes } from './routes/authRoutes';
 import { chatRoutes } from './routes/chatRoutes';
+import { ITokenPayload } from '../../shared/types';
 
 class Server {
   private app: Application;
@@ -50,21 +52,21 @@ class Server {
     const aiProvider = AIProviderFactory.create({
       type: 'gemini',
       apiKey: config.ai.apiKey,
-      modelName: config.ai.modelName
+      modelName: config.ai.modelName,
     });
 
     const registerUseCase = new RegisterUserUseCase(userRepository, {
       hashPassword: (pwd: string) => hashService.hash(pwd),
       comparePassword: (pwd: string, hash: string) => hashService.compare(pwd, hash),
-      generateToken: (payload: any) => tokenService.generateToken(payload),
-      verifyToken: (token: string) => tokenService.verifyToken(token)
+      generateToken: (payload: ITokenPayload) => tokenService.generateToken(payload),
+      verifyToken: (token: string) => tokenService.verifyToken(token),
     });
 
     const loginUseCase = new LoginUserUseCase(userRepository, {
       hashPassword: (pwd: string) => hashService.hash(pwd),
       comparePassword: (pwd: string, hash: string) => hashService.compare(pwd, hash),
-      generateToken: (payload: any) => tokenService.generateToken(payload),
-      verifyToken: (token: string) => tokenService.verifyToken(token)
+      generateToken: (payload: ITokenPayload) => tokenService.generateToken(payload),
+      verifyToken: (token: string) => tokenService.verifyToken(token),
     });
 
     const askQuestionUseCase = new AskQuestionUseCase(
@@ -114,4 +116,5 @@ class Server {
 }
 
 const server = new Server();
+
 server.start();

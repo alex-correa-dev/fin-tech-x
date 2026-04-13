@@ -15,7 +15,7 @@ export class AIProviderFactory {
           apiKey: config.apiKey,
           modelName: config.modelName,
           temperature: 0.7,
-          maxOutputTokens: 500
+          maxOutputTokens: 500,
         });
       default:
         throw new Error(`Provider ${config.type} not supported`);

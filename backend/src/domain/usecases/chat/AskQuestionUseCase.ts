@@ -41,7 +41,7 @@ export class AskQuestionUseCase {
     return {
       answer,
       timestamp: new Date().toISOString(),
-      model: this.aiProvider.getModelName()
+      model: this.aiProvider.getModelName(),
     };
   }
 }

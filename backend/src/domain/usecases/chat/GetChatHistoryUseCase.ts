@@ -13,11 +13,11 @@ export class GetChatHistoryUseCase {
   async execute(userId: number, limit: number = 50): Promise<ChatHistoryItem[]> {
     const messages = await this.chatRepository.findByUserId(userId, limit);
 
-    return messages.map(msg => ({
+    return messages.map((msg) => ({
       id: msg.id,
       question: msg.question,
       answer: msg.answer,
-      timestamp: msg.createdAt
+      timestamp: msg.createdAt,
     }));
   }
 }

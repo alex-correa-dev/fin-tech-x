@@ -19,19 +19,19 @@ export class ChatController {
       const dto = new AskQuestionDTO({
         question: req.body.question,
         userId: req.user.userId,
-        userName: req.body.userName || req.user.name
+        userName: req.body.userName || req.user.name,
       });
       dto.validate();
 
       const result = await this.askQuestionUseCase.execute({
         userId: dto.userId,
         question: dto.question,
-        userName: dto.userName
+        userName: dto.userName,
       });
 
       const response: IApiResponse<IChatResponse> = {
         success: true,
-        data: result
+        data: result,
       };
 
       res.json(response);
@@ -49,7 +49,7 @@ export class ChatController {
 
       const response: IApiResponse<typeof history> = {
         success: true,
-        data: history
+        data: history,
       };
 
       res.json(response);

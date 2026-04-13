@@ -32,12 +32,12 @@ export class RegisterUserUseCase {
     const token = this.authService.generateToken({
       userId: savedUser.id,
       email: savedUser.email,
-      name: savedUser.name
+      name: savedUser.name,
     });
 
     return {
       user: savedUser.toJSON(),
-      token
+      token,
     };
   }
 }

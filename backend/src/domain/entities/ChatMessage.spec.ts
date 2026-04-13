@@ -3,13 +3,8 @@ import { ChatMessage } from './ChatMessage';
 describe('ChatMessage Entity', () => {
   describe('constructor', () => {
     it('should create a valid chat message', () => {
-      const message = new ChatMessage(
-        1, 
-        100, 
-        'What are your hours?', 
-        'We are open 9-6'
-      );
-      
+      const message = new ChatMessage(1, 100, 'What are your hours?', 'We are open 9-6');
+
       expect(message).toBeInstanceOf(ChatMessage);
       expect(message.id).toBe(1);
       expect(message.userId).toBe(100);
@@ -40,12 +35,12 @@ describe('ChatMessage Entity', () => {
     it('should return message without userId', () => {
       const message = new ChatMessage(1, 100, 'Question?', 'Answer!');
       const json = message.toJSON();
-      
+
       expect(json).toEqual({
         id: 1,
         question: 'Question?',
         answer: 'Answer!',
-        createdAt: message.createdAt
+        createdAt: message.createdAt,
       });
       expect(json).not.toHaveProperty('userId');
     });

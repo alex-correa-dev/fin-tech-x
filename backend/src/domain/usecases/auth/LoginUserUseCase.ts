@@ -22,12 +22,12 @@ export class LoginUserUseCase {
     const token = this.authService.generateToken({
       userId: user.id,
       email: user.email,
-      name: user.name
+      name: user.name,
     });
 
     return {
       user: user.toJSON(),
-      token
+      token,
     };
   }
 }

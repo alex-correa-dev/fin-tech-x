@@ -30,7 +30,7 @@ export class ChatMessage implements IChatMessage {
       id: this.id,
       question: this.question,
       answer: this.answer,
-      createdAt: this.createdAt
+      createdAt: this.createdAt,
     };
   }
 }

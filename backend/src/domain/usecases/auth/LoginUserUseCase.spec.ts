@@ -7,14 +7,14 @@ const mockUserRepository = {
   findById: jest.fn(),
   update: jest.fn(),
   delete: jest.fn(),
-  exists: jest.fn()
+  exists: jest.fn(),
 };
 
 const mockAuthService = {
   hashPassword: jest.fn(),
   comparePassword: jest.fn(),
   generateToken: jest.fn(),
-  verifyToken: jest.fn()
+  verifyToken: jest.fn(),
 };
 
 describe('LoginUserUseCase', () => {
@@ -27,7 +27,7 @@ describe('LoginUserUseCase', () => {
 
   it('should login successfully with valid credentials', async () => {
     const user = new User(1, 'John Doe', 'john@example.com', 'hashed_password');
-    
+
     mockUserRepository.findByEmail.mockResolvedValue(user);
     mockAuthService.comparePassword.mockResolvedValue(true);
     mockAuthService.generateToken.mockReturnValue('fake_jwt_token');
@@ -40,7 +40,7 @@ describe('LoginUserUseCase', () => {
     expect(mockAuthService.generateToken).toHaveBeenCalledWith({
       userId: 1,
       email: 'john@example.com',
-      name: 'John Doe'
+      name: 'John Doe',
     });
   });
 
@@ -54,7 +54,7 @@ describe('LoginUserUseCase', () => {
 
   it('should throw error if password is incorrect', async () => {
     const user = new User(1, 'John Doe', 'john@example.com', 'hashed_password');
-    
+
     mockUserRepository.findByEmail.mockResolvedValue(user);
     mockAuthService.comparePassword.mockResolvedValue(false);
 
