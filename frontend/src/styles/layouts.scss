@@ -1,0 +1,6 @@
+.layout-stack {
+  & > .chat-interface {
+    margin: $spacing-xl auto;
+    max-width: 1000px;
+  }
+}

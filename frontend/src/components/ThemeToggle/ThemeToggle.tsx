@@ -5,13 +5,15 @@ import styles from './ThemeToggle.module.scss';
 const ThemeToggle: React.FC = () => {
   const { theme, toggleTheme } = useTheme();
 
+  const toggleClass = `${styles['theme-toggle']} ${theme === 'dark' ? styles['-dark'] : styles['-light']}`;
+
   return (
     <button
-      className={`${styles.toggle} ${theme === 'dark' ? styles.dark : styles.light}`}
+      className={toggleClass}
       onClick={toggleTheme}
-      aria-label="Alternar tema"
+      aria-label="Toggle theme"
     >
-      <div className={styles.toggleSlider}>
+      <div className={styles.slider}>
         <span className={styles.icon}>
           {theme === 'light' ? '☀️' : '🌙'}
         </span>

@@ -30,12 +30,14 @@ const Register: React.FC<RegisterProps> = ({ onRegister }) => {
     setError('');
 
     if (formData.password !== formData.confirmPassword) {
-      setError('As senhas não coincidem');
+      setError('Passwords do not match');
+      
       return;
     }
 
     if (formData.password.length < 6) {
-      setError('A senha deve ter no mínimo 6 caracteres');
+      setError('Password must be at least 6 characters');
+
       return;
     }
 
@@ -47,89 +49,93 @@ const Register: React.FC<RegisterProps> = ({ onRegister }) => {
         email: formData.email,
         password: formData.password
       });
-      
+
       onRegister?.();
       navigate('/dashboard');
     } catch (err) {
-      setError(err instanceof Error ? err.message : 'Erro ao cadastrar');
+      setError(err instanceof Error ? err.message : 'Error during registration');
     } finally {
       setLoading(false);
     }
   };
 
   return (
-    <div className={styles.container}>
-      <div className={styles.card}>
+    <div className={styles['register-page']}>
+      <div className={styles['register-card']}>
         <div className={styles.header}>
           <h1 className={styles.title}>💰 FinTechX</h1>
-          <p className={styles.subtitle}>Crie sua conta gratuitamente</p>
+          <p className={styles.subtitle}>Create your free account</p>
         </div>
 
         <form onSubmit={handleSubmit} className={styles.form}>
-          {error && <div className={styles.error}>{error}</div>}
+          {error && <div className={styles['error-message']}>{error}</div>}
 
-          <div className={styles.inputGroup}>
-            <label htmlFor="name">Nome completo</label>
+          <div className={styles['field-group']}>
+            <label className={styles.label} htmlFor="name">Full name</label>
             <input
               id="name"
               name="name"
+              className={styles.input}
               type="text"
               value={formData.name}
               onChange={handleChange}
-              placeholder="Seu nome"
+              placeholder="Your name"
               required
               disabled={loading}
             />
           </div>
 
-          <div className={styles.inputGroup}>
-            <label htmlFor="email">E-mail</label>
+          <div className={styles['field-group']}>
+            <label className={styles.label} htmlFor="email">Email</label>
             <input
               id="email"
               name="email"
+              className={styles.input}
               type="email"
               value={formData.email}
               onChange={handleChange}
-              placeholder="seu@email.com"
+              placeholder="your@email.com"
               required
               disabled={loading}
             />
           </div>
 
-          <div className={styles.inputGroup}>
-            <label htmlFor="password">Senha</label>
+          <div className={styles['field-group']}>
+            <label className={styles.label} htmlFor="password">Password</label>
             <input
               id="password"
               name="password"
+              className={styles.input}
               type="password"
               value={formData.password}
               onChange={handleChange}
-              placeholder="Mínimo 6 caracteres"
+              placeholder="Minimum 6 characters"
               required
               disabled={loading}
             />
           </div>
 
-          <div className={styles.inputGroup}>
-            <label htmlFor="confirmPassword">Confirmar senha</label>
+          <div className={styles['field-group']}>
+            <label className={styles.label} htmlFor="confirmPassword">Confirm password</label>
             <input
               id="confirmPassword"
               name="confirmPassword"
+              className={styles.input}
               type="password"
               value={formData.confirmPassword}
               onChange={handleChange}
-              placeholder="Digite a senha novamente"
+              placeholder="Confirm your password"
               required
               disabled={loading}
             />
           </div>
 
-          <button type="submit" className={styles.button} disabled={loading}>
-            {loading ? 'Cadastrando...' : 'Cadastrar'}
+          <button type="submit" className={styles['submit-btn']} disabled={loading}>
+            {loading ? 'Creating account...' : 'Sign Up'}
           </button>
 
           <p className={styles.footer}>
-            Já tem uma conta? <Link to="/login">Faça login</Link>
+            Already have an account? <Link className={styles.link} to="/login">Sign in</Link>
           </p>
         </form>
       </div>

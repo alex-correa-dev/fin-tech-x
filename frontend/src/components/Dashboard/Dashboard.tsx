@@ -23,20 +23,20 @@ const Dashboard: React.FC<DashboardProps> = ({ onLogout }) => {
   return (
     <div className={styles.dashboard}>
       <header className={styles.header}>
-        <div className={styles.headerContent}>
+        <div className={styles['header-content']}>
           <div className={styles.logo}>
-            <span className={styles.logoIcon}>💰</span>
-            <h1>FinTechX</h1>
+            <span className={styles.icon}>💰</span>
+            <h1 className={styles.title}>FinTechX</h1>
             <span className={styles.badge}>AI Powered</span>
           </div>
-          <div className={styles.userInfo}>
-            <div className={styles.userDetails}>
-              <span className={styles.userName}>{user?.name || 'Usuário'}</span>
-              <span className={styles.userEmail}>{user?.email}</span>
+          <div className={styles['user-area']}>
+            <div className={styles.info}>
+              <span className={styles.name}>{user?.name || 'User'}</span>
+              <span className={styles.email}>{user?.email}</span>
             </div>
             <ThemeToggle />
-            <button onClick={handleLogout} className={styles.logoutBtn}>
-              Sair
+            <button onClick={handleLogout} className={styles['logout-btn']}>
+              Sign out
             </button>
           </div>
         </div>

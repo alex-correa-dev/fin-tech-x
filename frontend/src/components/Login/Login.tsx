@@ -32,33 +32,35 @@ const Login: React.FC<LoginProps> = ({ onLogin }) => {
   };
 
   return (
-    <div className={styles.container}>
-      <div className={styles.card}>
+    <div className={styles['login-page']}>
+      <div className={styles['login-card']}>
         <div className={styles.header}>
           <h1 className={styles.title}>💰 FinTechX</h1>
-          <p className={styles.subtitle}>Bem-vindo de volta!</p>
+          <p className={styles.subtitle}>Welcome back!</p>
         </div>
 
         <form onSubmit={handleSubmit} className={styles.form}>
-          {error && <div className={styles.error}>{error}</div>}
+          {error && <div className={styles['error-message']}>{error}</div>}
 
-          <div className={styles.inputGroup}>
-            <label htmlFor="email">E-mail</label>
+          <div className={styles['field-group']}>
+            <label className={styles.label} htmlFor="email">Email</label>
             <input
               id="email"
+              className={styles.input}
               type="email"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
-              placeholder="seu@email.com"
+              placeholder="your@email.com"
               required
               disabled={loading}
             />
           </div>
 
-          <div className={styles.inputGroup}>
-            <label htmlFor="password">Senha</label>
+          <div className={styles['field-group']}>
+            <label className={styles.label} htmlFor="password">Password</label>
             <input
               id="password"
+              className={styles.input}
               type="password"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
@@ -68,12 +70,12 @@ const Login: React.FC<LoginProps> = ({ onLogin }) => {
             />
           </div>
 
-          <button type="submit" className={styles.button} disabled={loading}>
-            {loading ? 'Entrando...' : 'Entrar'}
+          <button type="submit" className={styles['submit-btn']} disabled={loading}>
+            {loading ? 'Signing in...' : 'Sign In'}
           </button>
 
           <p className={styles.footer}>
-            Não tem uma conta? <Link to="/register">Cadastre-se</Link>
+            Don't have an account? <Link className={styles.link} to="/register">Sign up</Link>
           </p>
         </form>
       </div>

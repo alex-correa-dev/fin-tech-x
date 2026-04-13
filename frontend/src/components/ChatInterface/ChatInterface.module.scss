@@ -1,6 +1,6 @@
 @import '../../styles/variables';
 
-.chatContainer {
+.chat-interface {
   max-width: 1000px;
   margin: $spacing-xl auto;
   background: $surface-primary;
@@ -16,24 +16,59 @@
     margin: $spacing-md;
     height: calc(100vh - 80px);
   }
-}
 
-.header {
-  @include gradient-primary;
-  color: white;
-  padding: $spacing-lg $spacing-xl;
+  > .header {
+    @include gradient-primary;
+    color: white;
+    padding: $spacing-lg $spacing-xl;
 
-  @media (max-width: $breakpoint-mobile) {
-    padding: $spacing-md $spacing-lg;
+    @media (max-width: $breakpoint-mobile) {
+      padding: $spacing-md $spacing-lg;
+    }
   }
-}
 
-.headerContent {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  flex-wrap: wrap;
-  gap: $spacing-md;
+  > .messages {
+    flex: 1;
+    overflow-y: auto;
+    padding: $spacing-xl;
+    background: $surface-secondary;
+
+    &::-webkit-scrollbar {
+      width: 6px;
+    }
+
+    &::-webkit-scrollbar-track {
+      background: $border-light;
+    }
+
+    &::-webkit-scrollbar-thumb {
+      background: var(--primary);
+      border-radius: 3px;
+    }
+  }
+
+  > .input-area {
+    padding: $spacing-lg $spacing-xl;
+    border-top: 1px solid $border-light;
+    background: $surface-primary;
+
+    @media (max-width: $breakpoint-mobile) {
+      padding: $spacing-md;
+    }
+  }
+
+  &.-loading {
+    opacity: 0.7;
+    pointer-events: none;
+  }
+
+  &.-compact {
+    max-width: 800px;
+    
+    > .header {
+      padding: $spacing-md $spacing-lg;
+    }
+  }
 }
 
 .brand {
@@ -41,26 +76,28 @@
   align-items: center;
   gap: $spacing-md;
 
-  .icon {
+  > .icon {
     font-size: 32px;
   }
 
-  h2 {
-    font-size: 20px;
-    margin-bottom: $spacing-xs;
+  > .info {
+    > .title {
+      font-size: 20px;
+      margin-bottom: $spacing-xs;
 
-    @media (max-width: $breakpoint-mobile) {
-      font-size: 18px;
+      @media (max-width: $breakpoint-mobile) {
+        font-size: 18px;
+      }
     }
-  }
 
-  p {
-    font-size: 12px;
-    opacity: 0.9;
+    > .subtitle {
+      font-size: 12px;
+      opacity: 0.9;
+    }
   }
 }
 
-.status {
+.status-indicator {
   display: flex;
   align-items: center;
   gap: $spacing-sm;
@@ -69,7 +106,7 @@
   border-radius: $border-radius-full;
   font-size: 12px;
 
-  .onlineDot {
+  > .dot {
     width: 8px;
     height: 8px;
     background: $success;
@@ -78,110 +115,80 @@
   }
 }
 
-.messagesArea {
-  flex: 1;
-  overflow-y: auto;
-  padding: $spacing-xl;
-  background: $surface-secondary;
-
-  &::-webkit-scrollbar {
-    width: 6px;
-  }
-
-  &::-webkit-scrollbar-track {
-    background: $border-light;
-  }
-
-  &::-webkit-scrollbar-thumb {
-    background: var(--primary);
-    border-radius: 3px;
-  }
-}
-
-.typingIndicator {
+.typing-indicator {
   display: flex;
   justify-content: flex-start;
   margin-bottom: $spacing-lg;
-}
 
-.typingContent {
-  background: $surface-primary;
-  padding: $spacing-md $spacing-lg;
-  border-radius: $border-radius-lg;
-  display: flex;
-  align-items: center;
-  gap: $spacing-sm;
-  box-shadow: $shadow-sm;
+  > .content {
+    background: $surface-primary;
+    padding: $spacing-md $spacing-lg;
+    border-radius: $border-radius-lg;
+    display: flex;
+    align-items: center;
+    gap: $spacing-sm;
+    @include shadow-sm;
 
-  .dot {
-    width: 8px;
-    height: 8px;
-    background: var(--primary);
-    border-radius: 50%;
-    animation: bounce 1.4s infinite;
+    > .dot {
+      width: 8px;
+      height: 8px;
+      background: var(--primary);
+      border-radius: 50%;
+      animation: bounce 1.4s infinite;
 
-    &:nth-child(2) {
-      animation-delay: 0.2s;
+      &:nth-child(2) {
+        animation-delay: 0.2s;
+      }
+      &:nth-child(3) {
+        animation-delay: 0.4s;
+      }
     }
-    &:nth-child(3) {
-      animation-delay: 0.4s;
+
+    > .text {
+      font-size: 12px;
+      color: $text-secondary;
+      margin-left: $spacing-sm;
     }
   }
-
-  .text {
-    font-size: 12px;
-    color: $text-secondary;
-    margin-left: $spacing-sm;
-  }
 }
 
-.inputArea {
-  padding: $spacing-lg $spacing-xl;
-  border-top: 1px solid $border-light;
-  background: $surface-primary;
-
-  @media (max-width: $breakpoint-mobile) {
-    padding: $spacing-md;
-  }
-}
-
-.suggestions {
+.suggestion-list {
   display: flex;
   gap: $spacing-sm;
   flex-wrap: wrap;
   margin-bottom: $spacing-md;
+
+  > .chip {
+    padding: $spacing-sm $spacing-md;
+    background: $surface-secondary;
+    border: 1px solid $border-light;
+    border-radius: $border-radius-full;
+    font-size: 13px;
+    cursor: pointer;
+    transition: $transition-base;
+    color: $text-primary;
+    white-space: nowrap;
+
+    &:hover {
+      background: var(--primary);
+      color: white;
+      transform: translateY(-2px);
+      border-color: var(--primary);
+    }
+
+    @media (max-width: $breakpoint-mobile) {
+      font-size: 11px;
+      white-space: normal;
+    }
+  }
 }
 
-.suggestionChip {
-  padding: $spacing-sm $spacing-md;
-  background: $surface-secondary;
-  border: 1px solid $border-light;
-  border-radius: $border-radius-full;
-  font-size: 13px;
-  cursor: pointer;
-  transition: $transition-base;
-  color: $text-primary;
-  white-space: nowrap;
-
-  &:hover {
-    background: var(--primary);
-    color: white;
-    transform: translateY(-2px);
-    border-color: var(--primary);
-  }
-
-  @media (max-width: $breakpoint-mobile) {
-    font-size: 11px;
-    white-space: normal;
-  }
-}
-
-.inputWrapper {
+.input-wrapper {
   display: flex;
   gap: $spacing-md;
   align-items: flex-end;
 
-  textarea {
+  > .field {
     flex: 1;
     padding: $spacing-md;
     background: $surface-secondary;
@@ -208,25 +215,43 @@
       cursor: not-allowed;
     }
   }
+
+  > .send-btn {
+    padding: $spacing-md $spacing-xl;
+    @include gradient-primary;
+    color: white;
+    border: none;
+    border-radius: $border-radius-md;
+    font-weight: 600;
+    cursor: pointer;
+    transition: $transition-base;
+
+    &:hover:not(:disabled) {
+      transform: translateY(-2px);
+      @include shadow-md;
+    }
+
+    &:disabled {
+      opacity: 0.5;
+      cursor: not-allowed;
+    }
+  }
 }
 
-.sendButton {
-  padding: $spacing-md $spacing-xl;
-  @include gradient-primary;
-  color: white;
-  border: none;
-  border-radius: $border-radius-md;
-  font-weight: 600;
-  cursor: pointer;
-  transition: $transition-base;
-
-  &:hover:not(:disabled) {
-    transform: translateY(-2px);
-    box-shadow: $shadow-md;
+@keyframes pulse {
+  0%, 100% {
+    opacity: 1;
   }
-
-  &:disabled {
+  50% {
     opacity: 0.5;
-    cursor: not-allowed;
+  }
+}
+
+@keyframes bounce {
+  0%, 60%, 100% {
+    transform: translateY(0);
+  }
+  30% {
+    transform: translateY(-10px);
   }
 }

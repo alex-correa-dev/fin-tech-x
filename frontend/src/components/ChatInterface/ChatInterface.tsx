@@ -89,24 +89,24 @@ const ChatInterface: React.FC = () => {
   ];
 
   return (
-    <div className={styles.chatContainer}>
+    <div className={`${styles['chat-interface']} ${loading ? styles['-loading'] : ''}`}>
       <div className={styles.header}>
-        <div className={styles.headerContent}>
+        <div className={styles['header-content']}>
           <div className={styles.brand}>
             <span className={styles.icon}>🤖</span>
-            <div>
-              <h2>Assistente Inteligente FinTechX</h2>
-              <p>Powered by Google Gemini AI • Atendimento personalizado 24/7</p>
+            <div className={styles.info}>
+              <h2 className={styles.title}>Assistente Inteligente FinTechX</h2>
+              <p className={styles.subtitle}>Powered by Google Gemini AI • Atendimento personalizado 24/7</p>
             </div>
           </div>
-          <div className={styles.status}>
-            <span className={styles.onlineDot}></span>
+          <div className={styles['status-indicator']}>
+            <span className={styles.dot}></span>
             <span>Online</span>
           </div>
         </div>
       </div>
 
-      <div className={styles.messagesArea}>
+      <div className={styles.messages}>
         {messages.map((msg) => (
           <Message
             key={msg.id}
@@ -117,8 +117,8 @@ const ChatInterface: React.FC = () => {
           />
         ))}
         {loading && (
-          <div className={styles.typingIndicator}>
-            <div className={styles.typingContent}>
+          <div className={styles['typing-indicator']}>
+            <div className={styles.content}>
               <span className={styles.dot}></span>
               <span className={styles.dot}></span>
               <span className={styles.dot}></span>
@@ -129,21 +129,22 @@ const ChatInterface: React.FC = () => {
         <div ref={messagesEndRef} />
       </div>
 
-      <div className={styles.inputArea}>
-        <div className={styles.suggestions}>
+      <div className={styles['input-area']}>
+        <div className={styles['suggestion-list']}>
           {suggestedQuestions.map((question, index) => (
             <button
               key={index}
               onClick={() => setInput(question)}
-              className={styles.suggestionChip}
+              className={styles.chip}
             >
               {question}
             </button>
           ))}
         </div>
 
-        <div className={styles.inputWrapper}>
+        <div className={styles['input-wrapper']}>
           <textarea
+            className={styles.field}
             value={input}
             onChange={(e) => setInput(e.target.value)}
             onKeyPress={handleKeyPress}
@@ -154,7 +155,7 @@ const ChatInterface: React.FC = () => {
           <button
             onClick={sendMessage}
             disabled={loading || !input.trim()}
-            className={styles.sendButton}
+            className={styles['send-btn']}
           >
             {loading ? '...' : 'Enviar →'}
           </button>

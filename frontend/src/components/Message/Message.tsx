@@ -17,8 +17,10 @@ const Message: React.FC<MessageProps> = ({ message, isUser, userName, timestamp 
     });
   };
 
+  const messageClass = `${styles.message} ${isUser ? styles['-user'] : styles['-assistant']}`;
+
   return (
-    <div className={`${styles.message} ${isUser ? styles.user : styles.assistant}`}>
+    <div className={messageClass}>
       <div className={styles.avatar}>
         {isUser ? '👤' : '🤖'}
       </div>
