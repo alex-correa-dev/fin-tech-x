@@ -1,4 +1,7 @@
 
+[![CI/CD Pipeline](https://github.com/alex-correa-dev/fin-tech-x/actions/workflows/ci-cd.yml/badge.svg)](https://github.com/alex-correa-dev/fin-tech-x/actions/workflows/ci-cd.yml)
+[![Code Quality](https://github.com/alex-correa-dev/fin-tech-x/actions/workflows/code-quality.yml/badge.svg)](https://github.com/alex-correa-dev/fin-tech-x/actions/workflows/code-quality.yml)
+
 # 💰 FinTechX - Chat Inteligente com IA
 
 [![Node.js](https://img.shields.io/badge/Node.js-20.x-green.svg)](https://nodejs.org/)
