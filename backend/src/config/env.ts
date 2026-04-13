@@ -52,7 +52,7 @@ const config: Config = {
   ai: {
     provider: 'gemini',
     apiKey: process.env.GEMINI_API_KEY || '',
-    modelName: 'gemini-1.5-flash'
+    modelName: process.env.GEMINI_MODEL_NAME || 'gemini-2.0-flash'
   }
 };
 

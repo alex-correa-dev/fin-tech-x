@@ -1,0 +1,56 @@
+// Primary Colors
+$primary: #667eea;
+$primary-dark: #5a67d8;
+$primary-light: #7c8ff0;
+$secondary: #764ba2;
+
+// State Colors
+$success: #48bb78;
+$danger: #f56565;
+$warning: #ed8936;
+$info: #4299e1;
+
+// Neutral Colors
+$dark: #2d3748;
+$gray: #718096;
+$gray-light: #a0aec0;
+$light-gray: #e2e8f0;
+$white: #ffffff;
+$bg-light: #f7f9fc;
+$bg-dark: #1a202c;
+
+// Spacing
+$spacing-xs: 4px;
+$spacing-sm: 8px;
+$spacing-md: 16px;
+$spacing-lg: 24px;
+$spacing-xl: 32px;
+$spacing-xxl: 48px;
+
+// Edges
+$border-radius-sm: 6px;
+$border-radius-md: 10px;
+$border-radius-lg: 15px;
+$border-radius-xl: 20px;
+$border-radius-full: 9999px;
+
+// Shadows
+$shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+$shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+$shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+$shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
+
+// Transitions
+$transition-fast: 150ms ease;
+$transition-base: 250ms ease;
+$transition-slow: 350ms ease;
+
+// Breakpoints
+$breakpoint-mobile: 768px;
+$breakpoint-tablet: 1024px;
+$breakpoint-desktop: 1280px;
+
+// Gradients
+$gradient-primary: linear-gradient(135deg, $primary 0%, $secondary 100%);
+$gradient-success: linear-gradient(135deg, $success 0%, #38b2ac 100%);
+$gradient-danger: linear-gradient(135deg, $danger 0%, #ed64a6 100%);

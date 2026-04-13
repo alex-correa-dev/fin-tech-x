@@ -1,0 +1,133 @@
+@import '../../styles/variables';
+
+.container {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: $spacing-lg;
+}
+
+.card {
+  background: $white;
+  border-radius: $border-radius-xl;
+  padding: $spacing-xl;
+  width: 100%;
+  max-width: 450px;
+  box-shadow: $shadow-xl;
+  animation: fadeIn 0.5s ease;
+}
+
+.header {
+  text-align: center;
+  margin-bottom: $spacing-xl;
+}
+
+.title {
+  font-size: 32px;
+  background: $gradient-primary;
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  margin-bottom: $spacing-sm;
+}
+
+.subtitle {
+  color: $gray;
+  font-size: 14px;
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: $spacing-lg;
+}
+
+.inputGroup {
+  display: flex;
+  flex-direction: column;
+  gap: $spacing-sm;
+
+  label {
+    font-weight: 600;
+    color: $dark;
+    font-size: 14px;
+  }
+
+  input {
+    padding: 12px $spacing-md;
+    border: 2px solid $light-gray;
+    border-radius: $border-radius-md;
+    font-size: 16px;
+    transition: $transition-base;
+
+    &:focus {
+      outline: none;
+      border-color: $primary;
+      box-shadow: 0 0 0 3px rgba($primary, 0.1);
+    }
+
+    &:disabled {
+      background: $bg-light;
+      cursor: not-allowed;
+    }
+  }
+}
+
+.button {
+  padding: 14px;
+  background: $gradient-primary;
+  color: $white;
+  border: none;
+  border-radius: $border-radius-md;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: $transition-base;
+
+  &:hover:not(:disabled) {
+    transform: translateY(-2px);
+    box-shadow: $shadow-md;
+  }
+
+  &:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+  }
+}
+
+.error {
+  background: #fed7d7;
+  color: $danger;
+  padding: $spacing-md;
+  border-radius: $border-radius-md;
+  font-size: 14px;
+  text-align: center;
+}
+
+.footer {
+  text-align: center;
+  color: $gray;
+  font-size: 14px;
+
+  a {
+    color: $primary;
+    text-decoration: none;
+    font-weight: 600;
+
+    &:hover {
+      text-decoration: underline;
+    }
+  }
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
