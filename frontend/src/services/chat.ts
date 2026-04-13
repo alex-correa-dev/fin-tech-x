@@ -24,13 +24,18 @@ class ChatService {
     answer: string;
     timestamp: string;
   }>> {
-    const response = await apiService.get<{ success: boolean; data?: any[] }>(`/chat/history?limit=${limit}`);
+    try {
+      const response = await apiService.get<{ success: boolean; data?: any[] }>(`/chat/history?limit=${limit}`);
 
-    if (response.success && response.data) {
-      return response.data;
+      if (response.success && response.data) {
+        return response.data;
+      }
+
+      return [];
+    } catch (error) {
+      console.error('Error fetching chat history:', error);
+      return [];
     }
-
-    return [];
   }
 }
 
