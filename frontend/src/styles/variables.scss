@@ -1,6 +1,6 @@
-// Cores que mudam com o tema (usando CSS variables)
+// Colors that change with theme (using CSS variables)
 :root {
-  // Light mode (padrão)
+  // Light mode (default)
   --primary: #667eea;
   --primary-dark: #5a67d8;
   --primary-light: #7c8ff0;
@@ -19,17 +19,17 @@
   --bg-light: #f7f9fc;
   --bg-dark: #1a202c;
   
-  // Cores de superfície
+  // Surface colors
   --surface-primary: #ffffff;
   --surface-secondary: #f7f9fc;
   --surface-tertiary: #edf2f7;
   
-  // Cores de texto
+  // Text colors
   --text-primary: #2d3748;
   --text-secondary: #718096;
   --text-disabled: #a0aec0;
   
-  // Cores de borda
+  // Border colors
   --border-light: #e2e8f0;
   --border-medium: #cbd5e0;
 }
@@ -54,22 +54,22 @@
   --bg-light: #0f172a;
   --bg-dark: #0a0f1a;
   
-  // Cores de superfície dark
+  // Dark mode surface colors
   --surface-primary: #1e293b;
   --surface-secondary: #0f172a;
   --surface-tertiary: #334155;
   
-  // Cores de texto dark
+  // Dark mode text colors
   --text-primary: #f1f5f9;
   --text-secondary: #cbd5e0;
   --text-disabled: #64748b;
   
-  // Cores de borda dark
+  // Dark mode border colors
   --border-light: #334155;
   --border-medium: #475569;
 }
 
-// Espaçamentos
+// Spacing
 $spacing-xs: 4px;
 $spacing-sm: 8px;
 $spacing-md: 16px;
@@ -77,26 +77,26 @@ $spacing-lg: 24px;
 $spacing-xl: 32px;
 $spacing-xxl: 48px;
 
-// Bordas
+// Border radius
 $border-radius-sm: 6px;
 $border-radius-md: 10px;
 $border-radius-lg: 15px;
 $border-radius-xl: 20px;
 $border-radius-full: 9999px;
 
-// Sombras
+// Shadows
 $shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
 $shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
 $shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
 $shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
 
-// Sombras para dark mode
+// Dark mode shadows
 $shadow-dark-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.3);
 $shadow-dark-md: 0 4px 6px -1px rgba(0, 0, 0, 0.4);
 $shadow-dark-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.4);
 $shadow-dark-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.4);
 
-// Transições
+// Transitions
 $transition-fast: 150ms ease;
 $transition-base: 250ms ease;
 $transition-slow: 350ms ease;
@@ -106,12 +106,12 @@ $breakpoint-mobile: 768px;
 $breakpoint-tablet: 1024px;
 $breakpoint-desktop: 1280px;
 
-// GRADIENTES (variáveis)
+// GRADIENTS (variables)
 $gradient-primary: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
 $gradient-success: linear-gradient(135deg, var(--success) 0%, #38b2ac 100%);
 $gradient-danger: linear-gradient(135deg, var(--danger) 0%, #ed64a6 100%);
 
-// Mixins de gradiente
+// Gradient mixins
 @mixin gradient-primary {
   background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
 }
@@ -124,7 +124,7 @@ $gradient-danger: linear-gradient(135deg, var(--danger) 0%, #ed64a6 100%);
   background: linear-gradient(135deg, var(--danger) 0%, #ed64a6 100%);
 }
 
-// Mixins de sombra
+// Shadow mixins
 @mixin shadow-sm {
   box-shadow: $shadow-sm;
 }
@@ -141,7 +141,7 @@ $gradient-danger: linear-gradient(135deg, var(--danger) 0%, #ed64a6 100%);
   box-shadow: $shadow-xl;
 }
 
-// Cores (usando variáveis CSS)
+// Colors (using CSS variables)
 $primary: var(--primary);
 $primary-dark: var(--primary-dark);
 $primary-light: var(--primary-light);
@@ -158,16 +158,16 @@ $white: var(--white);
 $bg-light: var(--bg-light);
 $bg-dark: var(--bg-dark);
 
-// Cores de texto
+// Text colors
 $text-primary: var(--text-primary);
 $text-secondary: var(--text-secondary);
 $text-disabled: var(--text-disabled);
 
-// Cores de superfície
+// Surface colors
 $surface-primary: var(--surface-primary);
 $surface-secondary: var(--surface-secondary);
 $surface-tertiary: var(--surface-tertiary);
 
-// Cores de borda
+// Border colors
 $border-light: var(--border-light);
 $border-medium: var(--border-medium);
