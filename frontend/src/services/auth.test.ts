@@ -3,8 +3,8 @@ import { apiService } from './api';
 
 jest.mock('./api', () => ({
   apiService: {
-    post: jest.fn()
-  }
+    post: jest.fn(),
+  },
 }));
 
 describe('AuthService', () => {
@@ -19,22 +19,22 @@ describe('AuthService', () => {
         success: true,
         data: {
           user: { id: 1, name: 'Test User', email: 'test@test.com' },
-          token: 'fake-token'
-        }
+          token: 'fake-token',
+        },
       };
-      
+
       (apiService.post as jest.Mock).mockResolvedValue(mockResponse);
-      
+
       const result = await authService.register({
         name: 'Test User',
         email: 'test@test.com',
-        password: 'password123'
+        password: 'password123',
       });
-      
+
       expect(apiService.post).toHaveBeenCalledWith('/auth/register', {
         name: 'Test User',
         email: 'test@test.com',
-        password: 'password123'
+        password: 'password123',
       });
       expect(result.user).toEqual({ id: 1, name: 'Test User', email: 'test@test.com' });
       expect(result.token).toBe('fake-token');
@@ -44,14 +44,16 @@ describe('AuthService', () => {
     it('should throw error when registration fails', async () => {
       (apiService.post as jest.Mock).mockResolvedValue({
         success: false,
-        error: 'Email already exists'
+        error: 'Email already exists',
       });
-      
-      await expect(authService.register({
-        name: 'Test',
-        email: 'test@test.com',
-        password: '123456'
-      })).rejects.toThrow('Email already exists');
+
+      await expect(
+        authService.register({
+          name: 'Test',
+          email: 'test@test.com',
+          password: '123456',
+        })
+      ).rejects.toThrow('Email already exists');
     });
   });
 
@@ -61,20 +63,20 @@ describe('AuthService', () => {
         success: true,
         data: {
           user: { id: 1, name: 'Test User', email: 'test@test.com' },
-          token: 'fake-token'
-        }
+          token: 'fake-token',
+        },
       };
-      
+
       (apiService.post as jest.Mock).mockResolvedValue(mockResponse);
-      
+
       const result = await authService.login({
         email: 'test@test.com',
-        password: 'password123'
+        password: 'password123',
       });
-      
+
       expect(apiService.post).toHaveBeenCalledWith('/auth/login', {
         email: 'test@test.com',
-        password: 'password123'
+        password: 'password123',
       });
       expect(result.user).toEqual({ id: 1, name: 'Test User', email: 'test@test.com' });
       expect(result.token).toBe('fake-token');
@@ -86,9 +88,9 @@ describe('AuthService', () => {
     it('should clear localStorage', () => {
       localStorage.setItem('token', 'fake-token');
       localStorage.setItem('user', JSON.stringify({ id: 1 }));
-      
+
       authService.logout();
-      
+
       expect(localStorage.getItem('token')).toBeNull();
       expect(localStorage.getItem('user')).toBeNull();
     });
@@ -109,7 +111,7 @@ describe('AuthService', () => {
     it('should return user from localStorage', () => {
       const user = { id: 1, name: 'Test' };
       localStorage.setItem('user', JSON.stringify(user));
-      
+
       expect(authService.getCurrentUser()).toEqual(user);
     });
 

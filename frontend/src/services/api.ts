@@ -5,10 +5,7 @@ interface FetchOptions extends RequestInit {
 }
 
 class ApiService {
-  private async request<T>(
-    endpoint: string,
-    options: FetchOptions = {}
-  ): Promise<T> {
+  private async request<T>(endpoint: string, options: FetchOptions = {}): Promise<T> {
     const url = `${API_URL}${endpoint}`;
     const token = localStorage.getItem('token');
 

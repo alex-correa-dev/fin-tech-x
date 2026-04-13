@@ -7,8 +7,8 @@ import { authService } from '../../services/auth';
 jest.mock('../../services/auth', () => ({
   authService: {
     logout: jest.fn(),
-    getCurrentUser: jest.fn()
-  }
+    getCurrentUser: jest.fn(),
+  },
 }));
 
 jest.mock('../ChatInterface/ChatInterface', () => {
@@ -26,7 +26,7 @@ jest.mock('../ThemeToggle/ThemeToggle', () => {
 const mockNavigate = jest.fn();
 jest.mock('react-router-dom', () => ({
   ...jest.requireActual('react-router-dom'),
-  useNavigate: () => mockNavigate
+  useNavigate: () => mockNavigate,
 }));
 
 describe('Dashboard', () => {
@@ -44,10 +44,10 @@ describe('Dashboard', () => {
         <Dashboard onLogout={jest.fn()} />
       </BrowserRouter>
     );
-    
+
     const userNameElement = screen.getByText(/Test User/i);
     const userEmailElement = screen.getByText(/test@test.com/i);
-    
+
     expect(userNameElement).not.toBeNull();
     expect(userNameElement.textContent).toBe('Test User');
     expect(userEmailElement).not.toBeNull();
@@ -56,16 +56,16 @@ describe('Dashboard', () => {
 
   it('should call logout and navigate to login when logout button is clicked', () => {
     const mockOnLogout = jest.fn();
-    
+
     render(
       <BrowserRouter>
         <Dashboard onLogout={mockOnLogout} />
       </BrowserRouter>
     );
-    
+
     const logoutButton = screen.getByRole('button', { name: /Sign out/i });
     fireEvent.click(logoutButton);
-    
+
     expect(mockLogout).toHaveBeenCalled();
     expect(mockOnLogout).toHaveBeenCalled();
     expect(mockNavigate).toHaveBeenCalledWith('/login');
@@ -77,7 +77,7 @@ describe('Dashboard', () => {
         <Dashboard onLogout={jest.fn()} />
       </BrowserRouter>
     );
-    
+
     const chatElement = screen.getByText(/Chat Interface Mock/i);
     expect(chatElement).not.toBeNull();
     expect(chatElement.textContent).toBe('Chat Interface Mock');

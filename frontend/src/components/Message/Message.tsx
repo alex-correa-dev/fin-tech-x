@@ -10,32 +10,28 @@ interface MessageProps {
 
 const Message: React.FC<MessageProps> = ({ message, isUser, userName, timestamp }) => {
   const formatTime = (date?: Date) => {
-    if (!date) return '';
+    if (!date) {
+      return '';
+    }
     return new Date(date).toLocaleTimeString('pt-BR', {
       hour: '2-digit',
-      minute: '2-digit'
+      minute: '2-digit',
     });
   };
 
   const messageClass = `${styles.message} ${isUser ? styles['-user'] : styles['-assistant']}`;
 
   return (
-    <div className={messageClass}>
-      <div className={styles.avatar}>
-        {isUser ? '👤' : '🤖'}
-      </div>
+    <div className={messageClass} data-testid="message-container">
+      <div className={styles.avatar}>{isUser ? '👤' : '🤖'}</div>
       <div className={styles.content}>
         <div className={styles.header}>
-          <span className={styles.name}>
-            {isUser ? userName || 'Você' : 'FinTechX AI'}
-          </span>
-          {timestamp && (
-            <span className={styles.time}>
-              {formatTime(timestamp)}
-            </span>
-          )}
+          <span className={styles.name}>{isUser ? userName || 'Você' : 'FinTechX AI'}</span>
+          {timestamp && <span className={styles.time}>{formatTime(timestamp)}</span>}
         </div>
-        <p className={styles.text}>{message}</p>
+        <p className={styles.text} data-testid="message-text">
+          {message}
+        </p>
       </div>
     </div>
   );

@@ -12,7 +12,7 @@ const Register: React.FC<RegisterProps> = ({ onRegister }) => {
     name: '',
     email: '',
     password: '',
-    confirmPassword: ''
+    confirmPassword: '',
   });
   const [error, setError] = useState<string>('');
   const [loading, setLoading] = useState<boolean>(false);
@@ -21,7 +21,7 @@ const Register: React.FC<RegisterProps> = ({ onRegister }) => {
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setFormData({
       ...formData,
-      [e.target.name]: e.target.value
+      [e.target.name]: e.target.value,
     });
   };
 
@@ -31,7 +31,7 @@ const Register: React.FC<RegisterProps> = ({ onRegister }) => {
 
     if (formData.password !== formData.confirmPassword) {
       setError('Passwords do not match');
-      
+
       return;
     }
 
@@ -47,7 +47,7 @@ const Register: React.FC<RegisterProps> = ({ onRegister }) => {
       await authService.register({
         name: formData.name,
         email: formData.email,
-        password: formData.password
+        password: formData.password,
       });
 
       onRegister?.();
@@ -71,7 +71,9 @@ const Register: React.FC<RegisterProps> = ({ onRegister }) => {
           {error && <div className={styles['error-message']}>{error}</div>}
 
           <div className={styles['field-group']}>
-            <label className={styles.label} htmlFor="name">Full name</label>
+            <label className={styles.label} htmlFor="name">
+              Full name
+            </label>
             <input
               id="name"
               name="name"
@@ -86,7 +88,9 @@ const Register: React.FC<RegisterProps> = ({ onRegister }) => {
           </div>
 
           <div className={styles['field-group']}>
-            <label className={styles.label} htmlFor="email">Email</label>
+            <label className={styles.label} htmlFor="email">
+              Email
+            </label>
             <input
               id="email"
               name="email"
@@ -101,7 +105,9 @@ const Register: React.FC<RegisterProps> = ({ onRegister }) => {
           </div>
 
           <div className={styles['field-group']}>
-            <label className={styles.label} htmlFor="password">Password</label>
+            <label className={styles.label} htmlFor="password">
+              Password
+            </label>
             <input
               id="password"
               name="password"
@@ -116,7 +122,9 @@ const Register: React.FC<RegisterProps> = ({ onRegister }) => {
           </div>
 
           <div className={styles['field-group']}>
-            <label className={styles.label} htmlFor="confirmPassword">Confirm password</label>
+            <label className={styles.label} htmlFor="confirmPassword">
+              Confirm password
+            </label>
             <input
               id="confirmPassword"
               name="confirmPassword"
@@ -135,7 +143,10 @@ const Register: React.FC<RegisterProps> = ({ onRegister }) => {
           </button>
 
           <p className={styles.footer}>
-            Already have an account? <Link className={styles.link} to="/login">Sign in</Link>
+            Already have an account?{' '}
+            <Link className={styles.link} to="/login">
+              Sign in
+            </Link>
           </p>
         </form>
       </div>

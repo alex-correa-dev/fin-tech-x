@@ -10,7 +10,7 @@ class AuthService {
 
       localStorage.setItem('token', token);
       localStorage.setItem('user', JSON.stringify(user));
-      
+
       return { user, token };
     }
 

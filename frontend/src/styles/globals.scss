@@ -11,26 +11,28 @@ html {
 }
 
 body {
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
+  font-family:
+    -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell',
+    'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   background: $bg-light;
   color: $text-primary;
-  transition: background-color $transition-base, color $transition-base;
+  transition:
+    background-color $transition-base,
+    color $transition-base;
 }
 
 * {
-  transition: background-color $transition-base, 
-              border-color $transition-base,
-              color $transition-base,
-              box-shadow $transition-base;
+  transition:
+    background-color $transition-base,
+    border-color $transition-base,
+    color $transition-base,
+    box-shadow $transition-base;
 }
 
 code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
+  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New', monospace;
 }
 
 @keyframes fadeIn {
@@ -67,7 +69,8 @@ code {
 }
 
 @keyframes pulse {
-  0%, 100% {
+  0%,
+  100% {
     opacity: 1;
   }
   50% {
@@ -82,7 +85,9 @@ code {
 }
 
 @keyframes bounce {
-  0%, 60%, 100% {
+  0%,
+  60%,
+  100% {
     transform: translateY(0);
   }
   30% {

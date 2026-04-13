@@ -4,8 +4,8 @@ import { apiService } from './api';
 jest.mock('./api', () => ({
   apiService: {
     post: jest.fn(),
-    get: jest.fn()
-  }
+    get: jest.fn(),
+  },
 }));
 
 describe('ChatService', () => {
@@ -17,7 +17,7 @@ describe('ChatService', () => {
     const mockAskData = {
       question: 'What are your hours?',
       userId: 1,
-      userName: 'Test User'
+      userName: 'Test User',
     };
 
     const mockSuccessResponse = {
@@ -25,8 +25,8 @@ describe('ChatService', () => {
       data: {
         answer: 'We are open Monday to Friday 9am-6pm',
         timestamp: '2024-01-01T10:00:00Z',
-        model: 'gemini-2.0-flash'
-      }
+        model: 'gemini-2.0-flash',
+      },
     };
 
     it('should ask question successfully and return answer', async () => {
@@ -41,11 +41,13 @@ describe('ChatService', () => {
     it('should throw error when API call fails with error message', async () => {
       const errorResponse = {
         success: false,
-        error: 'Failed to get response from AI'
+        error: 'Failed to get response from AI',
       };
       (apiService.post as jest.Mock).mockResolvedValue(errorResponse);
 
-      await expect(chatService.askQuestion(mockAskData)).rejects.toThrow('Failed to get response from AI');
+      await expect(chatService.askQuestion(mockAskData)).rejects.toThrow(
+        'Failed to get response from AI'
+      );
     });
 
     it('should throw generic error when response has no error message', async () => {
@@ -62,7 +64,7 @@ describe('ChatService', () => {
 
     it('should work without userId and userName', async () => {
       const askDataWithoutUser = {
-        question: 'What are your hours?'
+        question: 'What are your hours?',
       };
       (apiService.post as jest.Mock).mockResolvedValue(mockSuccessResponse);
 
@@ -74,7 +76,7 @@ describe('ChatService', () => {
 
     it('should handle empty question', async () => {
       const emptyQuestionData = {
-        question: ''
+        question: '',
       };
       (apiService.post as jest.Mock).mockResolvedValue(mockSuccessResponse);
 
@@ -92,15 +94,15 @@ describe('ChatService', () => {
           id: 1,
           question: 'What are your hours?',
           answer: 'We are open 9-6',
-          timestamp: '2024-01-01T10:00:00Z'
+          timestamp: '2024-01-01T10:00:00Z',
         },
         {
           id: 2,
           question: 'Where are you located?',
           answer: 'We are in Sao Paulo',
-          timestamp: '2024-01-01T11:00:00Z'
-        }
-      ]
+          timestamp: '2024-01-01T11:00:00Z',
+        },
+      ],
     };
 
     it('should get chat history successfully with default limit', async () => {

@@ -10,8 +10,8 @@ const ChatInterface: React.FC = () => {
       id: 1,
       text: 'Olá! Sou o assistente inteligente da FinTechX, alimentado por Google Gemini AI. Como posso ajudar você hoje? 😊',
       isUser: false,
-      timestamp: new Date()
-    }
+      timestamp: new Date(),
+    },
   ]);
   const [input, setInput] = useState<string>('');
   const [loading, setLoading] = useState<boolean>(false);
@@ -27,16 +27,18 @@ const ChatInterface: React.FC = () => {
   }, [messages]);
 
   const sendMessage = async (): Promise<void> => {
-    if (!input.trim() || loading) return;
+    if (!input.trim() || loading) {
+      return;
+    }
 
     const userMessage: IChatMessage = {
       id: Date.now(),
       text: input,
       isUser: true,
-      timestamp: new Date()
+      timestamp: new Date(),
     };
 
-    setMessages(prev => [...prev, userMessage]);
+    setMessages((prev) => [...prev, userMessage]);
     setInput('');
     setLoading(true);
 
@@ -44,28 +46,31 @@ const ChatInterface: React.FC = () => {
       const answer = await chatService.askQuestion({
         question: input,
         userId: user.id,
-        userName: user.name
+        userName: user.name,
       });
 
       const assistantMessage: IChatMessage = {
         id: Date.now() + 1,
         text: answer,
         isUser: false,
-        timestamp: new Date()
+        timestamp: new Date(),
       };
-      
-      setMessages(prev => [...prev, assistantMessage]);
+
+      setMessages((prev) => [...prev, assistantMessage]);
     } catch (error) {
       console.error('Erro:', error);
 
       const errorMessage: IChatMessage = {
         id: Date.now() + 1,
-        text: error instanceof Error ? error.message : 'Desculpe, tive um problema. Tente novamente mais tarde. 😔',
+        text:
+          error instanceof Error
+            ? error.message
+            : 'Desculpe, tive um problema. Tente novamente mais tarde. 😔',
         isUser: false,
-        timestamp: new Date()
+        timestamp: new Date(),
       };
 
-      setMessages(prev => [...prev, errorMessage]);
+      setMessages((prev) => [...prev, errorMessage]);
     } finally {
       setLoading(false);
     }
@@ -79,13 +84,13 @@ const ChatInterface: React.FC = () => {
   };
 
   const suggestedQuestions: string[] = [
-    "📅 Quais são os horários de atendimento?",
-    "📍 Onde estão localizados os escritórios?",
-    "👥 Quem fundou a FinTechX?",
-    "🔒 Como vocês protegem meus dados?",
-    "⚠️ Recebi e-mail suspeito, o que fazer?",
-    "📚 Como aprender sobre investimentos?",
-    "🎁 Como receber promoções e descontos?"
+    '📅 Quais são os horários de atendimento?',
+    '📍 Onde estão localizados os escritórios?',
+    '👥 Quem fundou a FinTechX?',
+    '🔒 Como vocês protegem meus dados?',
+    '⚠️ Recebi e-mail suspeito, o que fazer?',
+    '📚 Como aprender sobre investimentos?',
+    '🎁 Como receber promoções e descontos?',
   ];
 
   return (
@@ -96,7 +101,9 @@ const ChatInterface: React.FC = () => {
             <span className={styles.icon}>🤖</span>
             <div className={styles.info}>
               <h2 className={styles.title}>Assistente Inteligente FinTechX</h2>
-              <p className={styles.subtitle}>Powered by Google Gemini AI • Atendimento personalizado 24/7</p>
+              <p className={styles.subtitle}>
+                Powered by Google Gemini AI • Atendimento personalizado 24/7
+              </p>
             </div>
           </div>
           <div className={styles['status-indicator']}>
@@ -132,11 +139,7 @@ const ChatInterface: React.FC = () => {
       <div className={styles['input-area']}>
         <div className={styles['suggestion-list']}>
           {suggestedQuestions.map((question, index) => (
-            <button
-              key={index}
-              onClick={() => setInput(question)}
-              className={styles.chip}
-            >
+            <button key={index} onClick={() => setInput(question)} className={styles.chip}>
               {question}
             </button>
           ))}

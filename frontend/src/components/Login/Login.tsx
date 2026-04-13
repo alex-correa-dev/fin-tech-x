@@ -21,7 +21,7 @@ const Login: React.FC<LoginProps> = ({ onLogin }) => {
 
     try {
       await authService.login({ email, password });
-      
+
       onLogin?.();
       navigate('/dashboard');
     } catch (err) {
@@ -43,7 +43,9 @@ const Login: React.FC<LoginProps> = ({ onLogin }) => {
           {error && <div className={styles['error-message']}>{error}</div>}
 
           <div className={styles['field-group']}>
-            <label className={styles.label} htmlFor="email">Email</label>
+            <label className={styles.label} htmlFor="email">
+              Email
+            </label>
             <input
               id="email"
               className={styles.input}
@@ -57,7 +59,9 @@ const Login: React.FC<LoginProps> = ({ onLogin }) => {
           </div>
 
           <div className={styles['field-group']}>
-            <label className={styles.label} htmlFor="password">Password</label>
+            <label className={styles.label} htmlFor="password">
+              Password
+            </label>
             <input
               id="password"
               className={styles.input}
@@ -75,7 +79,10 @@ const Login: React.FC<LoginProps> = ({ onLogin }) => {
           </button>
 
           <p className={styles.footer}>
-            Don't have an account? <Link className={styles.link} to="/register">Sign up</Link>
+            Don't have an account?{' '}
+            <Link className={styles.link} to="/register">
+              Sign up
+            </Link>
           </p>
         </form>
       </div>

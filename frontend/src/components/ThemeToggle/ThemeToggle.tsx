@@ -12,9 +12,10 @@ const ThemeToggle: React.FC = () => {
       className={toggleClass}
       onClick={toggleTheme}
       aria-label="Toggle theme"
+      data-testid="theme-toggle-button"
     >
-      <div className={styles.slider}>
-        <span className={styles.icon}>
+      <div className={styles.slider} data-testid="theme-toggle-slider">
+        <span className={styles.icon} data-testid="theme-toggle-icon">
           {theme === 'light' ? '☀️' : '🌙'}
         </span>
       </div>

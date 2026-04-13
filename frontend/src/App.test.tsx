@@ -9,8 +9,8 @@ jest.mock('./services/auth', () => ({
     login: jest.fn(),
     register: jest.fn(),
     logout: jest.fn(),
-    getCurrentUser: jest.fn()
-  }
+    getCurrentUser: jest.fn(),
+  },
 }));
 
 jest.mock('./components/Login/Login', () => {
@@ -33,14 +33,14 @@ jest.mock('./components/Dashboard/Dashboard', () => {
 
 jest.mock('./contexts/ThemeContext', () => ({
   ThemeProvider: ({ children }: { children: React.ReactNode }) => <>{children}</>,
-  useTheme: () => ({ theme: 'light', toggleTheme: jest.fn(), setTheme: jest.fn() })
+  useTheme: () => ({ theme: 'light', toggleTheme: jest.fn(), setTheme: jest.fn() }),
 }));
 
 jest.mock('react-router-dom', () => ({
   BrowserRouter: ({ children }: { children: React.ReactNode }) => <>{children}</>,
   Routes: ({ children }: { children: React.ReactNode }) => <>{children}</>,
   Route: ({ element }: { element: React.ReactNode }) => <>{element}</>,
-  Navigate: () => null
+  Navigate: () => null,
 }));
 
 describe('App', () => {
@@ -53,7 +53,7 @@ describe('App', () => {
     mockIsAuthenticated.mockReturnValue(false);
 
     render(<App />);
-    
+
     const loginElement = screen.queryByTestId('login-component');
     expect(loginElement).not.toBeNull();
     expect(loginElement).toBeDefined();
@@ -62,12 +62,12 @@ describe('App', () => {
   it('should render dashboard component when user is authenticated', () => {
     const mockIsAuthenticated = authService.isAuthenticated as jest.Mock;
     const mockGetCurrentUser = authService.getCurrentUser as jest.Mock;
-    
+
     mockIsAuthenticated.mockReturnValue(true);
     mockGetCurrentUser.mockReturnValue({ id: 1, name: 'Test User', email: 'test@test.com' });
 
     render(<App />);
-    
+
     const dashboardElement = screen.queryByTestId('dashboard-component');
     expect(dashboardElement).not.toBeNull();
     expect(dashboardElement).toBeDefined();

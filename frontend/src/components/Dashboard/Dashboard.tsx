@@ -15,7 +15,7 @@ const Dashboard: React.FC<DashboardProps> = ({ onLogout }) => {
 
   const handleLogout = () => {
     authService.logout();
-    
+
     onLogout?.();
     navigate('/login');
   };

@@ -18,14 +18,18 @@ class ChatService {
     throw new Error(response.error || 'Erro ao obter resposta');
   }
 
-  async getHistory(limit: number = 50): Promise<Array<{
-    id: number;
-    question: string;
-    answer: string;
-    timestamp: string;
-  }>> {
+  async getHistory(limit: number = 50): Promise<
+    Array<{
+      id: number;
+      question: string;
+      answer: string;
+      timestamp: string;
+    }>
+  > {
     try {
-      const response = await apiService.get<{ success: boolean; data?: any[] }>(`/chat/history?limit=${limit}`);
+      const response = await apiService.get<{ success: boolean; data?: any[] }>(
+        `/chat/history?limit=${limit}`
+      );
 
       if (response.success && response.data) {
         return response.data;

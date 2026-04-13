@@ -64,7 +64,7 @@
 
   &.-compact {
     max-width: 800px;
-    
+
     > .header {
       padding: $spacing-md $spacing-lg;
     }
@@ -239,7 +239,8 @@
 }
 
 @keyframes pulse {
-  0%, 100% {
+  0%,
+  100% {
     opacity: 1;
   }
   50% {
@@ -248,7 +249,9 @@
 }
 
 @keyframes bounce {
-  0%, 60%, 100% {
+  0%,
+  60%,
+  100% {
     transform: translateY(0);
   }
   30% {
