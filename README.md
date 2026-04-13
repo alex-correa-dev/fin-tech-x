@@ -21,16 +21,16 @@ Criar uma aplicação completa onde usuários possam:
 - ✅ Obter respostas personalizadas sobre a FinTechX
 - ✅ Manter histórico de conversas
 
-### 🏗️ Arquitetura
+### 🏗️ Arquitetura do Backend
 
-O projeto segue os princípios da **Clean Architecture**, garantindo:
+O backend segue os princípios da **Clean Architecture**, garantindo:
 - **Separação de responsabilidades** entre domínio, aplicação e infraestrutura
 - **Independência de frameworks** (trocar Express por Fastify é fácil)
 - **Independência de banco de dados** (trocar PostgreSQL por MongoDB é simples)
 - **Testabilidade** total de todas as camadas
-- **Código tipo-safety** com TypeScript
+- **Código type-safe** com TypeScript
 
-```
+```text
 ┌─────────────────────────────────────────────────────┐
 │ INTERFACES                                          │
 │ (Controllers, Middlewares, Validators)              │
@@ -46,6 +46,26 @@ O projeto segue os princípios da **Clean Architecture**, garantindo:
 └─────────────────────────────────────────────────────┘
 ```
 
+### 🎨 Arquitetura do Frontend
+
+O frontend foi construído com foco em **componentização**, **manutenibilidade** e **experiência do usuário**:
+
+```text
+┌─────────────────────────────────────────────────────┐
+│ COMPONENTES (UI Layer) │
+│ (Login, Register, Dashboard, ChatInterface, Message)│
+├─────────────────────────────────────────────────────┤
+│ SERVICES (Business Logic Layer) │
+│ (API Service, Auth Service, Chat Service) │
+├─────────────────────────────────────────────────────┤
+│ CONTEXTS (State Management) │
+│ (Theme Context - Dark/Light Mode) │
+├─────────────────────────────────────────────────────┤
+│ TYPES (Type Safety Layer) │
+│ (Interfaces e tipos compartilhados) │
+└─────────────────────────────────────────────────────┘
+```
+
 ## 🚀 Tecnologias Utilizadas
 
 ### Backend
@@ -57,7 +77,7 @@ O projeto segue os princípios da **Clean Architecture**, garantindo:
 | PostgreSQL | 15.x | Banco de dados relacional |
 | JWT | 9.x | Autenticação |
 | Bcrypt | 5.x | Hash de senhas |
-| Google Gemini AI | 1.5 Flash | Modelo de linguagem |
+| Google Gemini AI | 2.5 Flash | Modelo de linguagem |
 | Jest | 29.x | Testes unitários |
 
 ### Frontend
@@ -65,18 +85,21 @@ O projeto segue os princípios da **Clean Architecture**, garantindo:
 |------------|--------|------------|
 | React | 18.x | Biblioteca UI |
 | TypeScript | 5.x | Tipagem estática |
-| SCSS | 1.x | Estilização modular |
-| React Router DOM | 6.x | Roteamento |
+| SCSS Modules | 1.x | Estilização encapsulada |
+| React Router DOM | 6.x | Roteamento client-side |
+| Fetch API | Nativo | Requisições HTTP |
+| Jest + Testing Library | 29.x | Testes unitários e integração |
 
 ### Ferramentas de Desenvolvimento
 - **Nodemon** - Hot-reload durante desenvolvimento
 - **TS-Node** - Execução direta de TypeScript
 - **Jest** - Testes unitários e coverage
-- **ESLint** - Linting (opcional)
+- **ESLint + Prettier** - Padronização de código
+- **React Scripts** - Build e desenvolvimento do frontend
 
 ## 📁 Estrutura do Projeto
 
-```
+```text
 fintechx/
 ├── backend/
 │ ├── src/
@@ -111,19 +134,21 @@ fintechx/
 ├── frontend/
 │ ├── src/
 │ │ ├── components/ # Componentes React (cada um com seu SCSS)
-│ │ │ ├── Login/
-│ │ │ ├── Register/
-│ │ │ ├── Dashboard/
-│ │ │ ├── ChatInterface/
-│ │ │ └── Message/
-│ │ ├── services/ # API e Auth services
-│ │ ├── types/ # Tipos TypeScript
-│ │ ├── styles/ # Variáveis e estilos globais SCSS
-│ │ ├── App.tsx
-│ │ └── index.tsx
-│ ├── public/
+│ │ │ ├── Login/ # Página de login
+│ │ │ ├── Register/ # Página de registro
+│ │ │ ├── Dashboard/ # Dashboard principal
+│ │ │ ├── ChatInterface/ # Interface do chat
+│ │ │ ├── Message/ # Componente de mensagem
+│ │ │ └── ThemeToggle/ # Alternador de tema
+│ │ ├── contexts/ # Contextos React (ThemeContext)
+│ │ ├── services/ # Serviços (API, Auth, Chat)
+│ │ ├── types/ # Tipos TypeScript compartilhados
+│ │ ├── styles/ # Estilos globais e variáveis
+│ │ ├── App.tsx # Componente principal
+│ │ └── index.tsx # Ponto de entrada
+│ ├── public/ # Arquivos estáticos
 │ ├── .env # Variáveis de ambiente
-│ ├── tsconfig.json
+│ ├── tsconfig.json # Configuração do TypeScript
 │ └── package.json
 │
 └── README.md
@@ -174,6 +199,7 @@ JWT_SECRET=fintechx_super_secret_key_change_this_in_production
 
 # Google Gemini AI
 GEMINI_API_KEY=sua_chave_api_gemini_aqui
+GEMINI_MODEL_NAME=gemini-2.5-flash-lite
 ```
 
 #### Obter API Key do Google Gemini (Gratuita)
@@ -229,7 +255,7 @@ npm run dev
 ```text
 🚀 Servidor rodando na porta 5000
 📝 Ambiente: development
-🤖 IA Provider: gemini-1.5-flash
+🤖 IA Provider: gemini-2.5-flash-lite
 ✅ Conectado ao PostgreSQL
 ✅ Tabelas criadas/verificadas
 ```
@@ -263,29 +289,24 @@ npx serve -s build
 
 ## 🧪 Testes
 
-#### Executar todos os testes
+#### Backend
 
 ```bash
 cd backend
-npm test
+npm test                # Executar todos os testes
+npm run test:watch      # Modo watch
+npm run test:coverage   # Com cobertura
+npm test -- User.spec.ts # Teste específico
 ```
 
-### Executar testes em modo watch
+### Frontend
 
 ```bash
-npm run test:watch
-```
-
-### Executar com coverage
-
-```bash
-npm run test:coverage
-```
-
-### Executar teste específico
-
-```bash
-npm test -- User.spec.ts
+cd frontend
+npm test                # Executar todos os testes
+npm run test:watch      # Modo watch
+npm run test:coverage   # Com cobertura
+npm test -- Login.test.tsx # Teste específico
 ```
 
 ### Estrutura dos Testes
@@ -310,7 +331,7 @@ src/
 
 ### Cobertura de Testes
 
-Os testes cobrem:
+#### Backend:
 
 - ✅ Domain Entities - Validações e regras de negócio
 - ✅ Use Cases - Fluxos principais (registro, login, chat)
@@ -318,6 +339,13 @@ Os testes cobrem:
 - ✅ Security Services - JWT, Bcrypt
 - ✅ Repositories - Operações de banco (com mocks)
 - ✅ AI Provider - Integração com Gemini
+
+#### Frontend:
+
+- ✅ Componentes - Renderização e interações
+- ✅ Services - Chamadas API e lógica de negócio
+- ✅ Contexts - Gerenciamento de estado (ThemeContext)
+- ✅ Integração - Fluxos completos (login → dashboard → chat)
 
 ### 🎯 Funcionalidades
 
@@ -389,7 +417,9 @@ lsof -ti:5000 | xargs kill -9  # Linux/Mac
 
 ## 📝 Decisões Técnicas
 
-### Por que Clean Architecture?
+### Backend
+
+#### Por que Clean Architecture?
 
 - ****Separação clara de responsabilidades****
 - ****Independência de frameworks e bibliotecas****
@@ -397,7 +427,7 @@ lsof -ti:5000 | xargs kill -9  # Linux/Mac
 - ****Testabilidade máxima**** (cada camada pode ser testada isoladamente)
 - ****Código mais expressivo e autodocumentado****
 
-### Por que Google Gemini AI?
+#### Por que Google Gemini AI?
 
 - ****Gratuito**** para desenvolvimento (tier generoso)
 - ****Sem necessidade de cartão de crédito**** para começar
@@ -405,37 +435,54 @@ lsof -ti:5000 | xargs kill -9  # Linux/Mac
 - ****Contexto de 1M tokens**** (muito maior que concorrentes)
 - ****Facilidade de implementação****
 
-### Por que TypeScript?
+#### Por que TypeScript no Backend?
+
+### Frontend
+
+#### Por que React com TypeScript?
 
 - ****Type safety**** reduz erros em produção
 - ****Melhor experiência de desenvolvimento**** (autocomplete, refatoração)
 - ****Código auto-documentado****
 - ****Facilita manutenção em equipe****
 
-### Por que SCSS Modular?
+### Por que SCSS Modules?
 
 - ****Estilos encapsulados por componente****
 - ****Variáveis globais reutilizáveis****
 - ****Animações e responsividade integradas****
 - ****Manutenção mais fácil que CSS puro****
 
-### Por que testes colaterais (ao lado do código)?
+### Por que RSCSS (Reasonable System for CSS Stylesheet Structure)?
 
-- ****Facilita encontrar o teste (mesma pasta que o arquivo)****
-- ****Importação mais simples (caminhos relativos)****
-- ****Remove arquivos de teste no mesmo commit que o código****
-- ****Prática recomendada pelo Jest****
+- **Nomenclatura intuitiva** - Componentes com duas palavras, elementos com uma
+- **Aninhamento claro** - Hierarquia visual usando o seletor >
+- **Evita especificidade excessiva** - Menos necessidade de !important
+- **Fácil manutenção** - Componentes independentes e reutilizáveis
+- **Escalável** - Fácil adicionar novos componentes sem conflitos
+
+```text
+// Exemplo RSCSS
+.chat-interface {           // Componente (2 palavras)
+  > .header { }              // Elemento (1 palavra)
+  > .messages { }            // Elemento (1 palavra)
+  
+  &.-loading { }             // Variante (começa com -)
+}
+```
 
 ## 🔄 Fluxo de Dados
 
 ```text
 1. Usuário acessa frontend (React)
 2. Faz login/registro → Backend (JWT)
-3. Acessa chat autenticado
-4. Envia pergunta → Backend
-5. Backend chama Gemini AI (com contexto da FinTechX)
-6. Resposta é salva no PostgreSQL
-7. Frontend exibe resposta estilo ChatGPT
+3. Token armazenado no localStorage
+4. Acessa chat autenticado
+5. Envia pergunta → Backend
+6. Backend chama Gemini AI (com contexto da FinTechX)
+7. Resposta é salva no PostgreSQL
+8. Frontend exibe resposta estilo ChatGPT
+9. Dark/Light mode persiste no localStorage
 ```
 
 ## 📊 Diagrama de Banco de Dados
