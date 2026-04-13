@@ -510,7 +510,77 @@ chat_history (
 
 ## 🚢 Deploy
 
-TODO
+### 🌐 URLs da Aplicação
+
+| Ambiente | URL | Status |
+|----------|-----|--------|
+| **Frontend (Vercel)** | [https://fintechx-frontend.vercel.app](https://fintechx-frontend.vercel.app) | ✅ Online |
+| **Backend (Render)** | [https://fintechx-backend.onrender.com](https://fintechx-backend.onrender.com) | ✅ Online |
+| **Health Check** | [https://fintechx-backend.onrender.com/health](https://fintechx-backend.onrender.com/health) | ✅ Online |
+
+### 🏗️ Infraestrutura em Nuvem
+
+| Serviço | Plataforma | Plano | Motivo da Escolha |
+|---------|------------|-------|-------------------|
+| **Frontend** | Vercel | Gratuito | Deploy automático com GitHub, CDN global, build otimizado para React, certificado SSL automático |
+| **Backend** | Render | Gratuito | Suporte nativo a Node.js/TypeScript, PostgreSQL integrado, 750 horas/mês |
+| **Banco de Dados** | Render PostgreSQL | Gratuito | 1GB de armazenamento, conexão interna segura, backup automático |
+
+### 🔄 CI/CD Pipeline (GitHub Actions)
+
+```yaml
+Workflow CI/CD Pipeline
+├── 📦 Test Backend      # Jest + ESLint + Type Check
+├── 📦 Test Frontend     # React Testing Library + ESLint
+├── 🔨 Build Backend     # Verifica compilação TypeScript
+├── 🔨 Build Frontend    # Verifica build React
+├── 🚀 Deploy Backend    # Render (via API)
+└── 🚀 Deploy Frontend   # Vercel (via GitHub Action)
+```
+
+**Gatilhos**: Push ou Pull Request na branch `main`
+
+### ⚙️ Variáveis de Ambiente Configuradas
+
+#### Backend (Render):
+
+```env
+DB_HOST, DB_PORT, DB_USER, DB_PASSWORD, DB_NAME
+JWT_SECRET, GEMINI_API_KEY, GEMINI_MODEL_NAME
+```
+
+#### Frontend (Vercel):
+
+```env
+REACT_APP_API_URL=https://fintechx-backend.onrender.com/api
+```
+
+### 🔐 Secrets do GitHub Actions
+
+| Secret | Finalidade |
+|--------|------------|
+| `RENDER_API_KEY` | Autenticação para deploy no Render |
+| `RENDER_SERVICE_ID` | Identificação do serviço backend |
+| `VERCEL_TOKEN` | Autenticação para deploy na Vercel |
+| `VERCEL_ORG_ID` | Identificação da organização Vercel |
+| `VERCEL_PROJECT_ID` | Identificação do projeto frontend |
+
+### 📊 Estratégia de Deploy
+
+Push na branch main → GitHub Actions → Testes → Build → Deploy Render + Vercel → ✅ Online
+
+
+### 🎯 Decisões Técnicas
+
+| Decisão | Motivo |
+|---------|--------|
+| **Vercel para Frontend** | Integração nativa com React, deploy automático a cada push, preview deployments para PRs |
+| **Render para Backend** | Suporte a TypeScript, PostgreSQL integrado, free tier generoso |
+| **GitHub Actions** | CI/CD gratuito, integração nativa com repositório, 2.000 minutos/mês |
+| **Deploy automático** | Apenas na branch `main` após aprovação de todos os testes |
+| **Health Check** | Endpoint `/health` para monitoramento do backend |
+
+✅ Status: Produção 🎉
 
 ## 📄 Licença
 
