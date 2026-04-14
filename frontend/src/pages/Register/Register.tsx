@@ -3,6 +3,13 @@ import { useNavigate, Link } from 'react-router-dom';
 import { authService } from '../../services/auth';
 import Input from '../../components/Input/Input';
 import Icon from '../../components/Icon/Icon';
+import {
+  sanitizeEmail,
+  sanitizeString,
+  sanitizeName,
+  isValidEmail,
+  isValidPassword,
+} from '../../utils/sanitize';
 import styles from './Register.module.scss';
 
 interface RegisterProps {
@@ -31,13 +38,28 @@ const Register: React.FC<RegisterProps> = ({ onRegister }) => {
     e.preventDefault();
     setError('');
 
-    if (formData.password !== formData.confirmPassword) {
-      setError('As senhas não coincidem');
+    const sanitizedName = sanitizeName(formData.name);
+    const sanitizedEmail = sanitizeEmail(formData.email);
+    const sanitizedPassword = sanitizeString(formData.password);
+    const sanitizedConfirmPassword = sanitizeString(formData.confirmPassword);
+
+    if (!sanitizedName || sanitizedName.length < 3) {
+      setError('Nome deve ter no mínimo 3 caracteres');
       return;
     }
 
-    if (formData.password.length < 6) {
-      setError('A senha deve ter no mínimo 6 caracteres');
+    if (!isValidEmail(sanitizedEmail)) {
+      setError('Por favor, insira um e-mail válido');
+      return;
+    }
+
+    if (!isValidPassword(sanitizedPassword)) {
+      setError('A senha deve ter entre 6 e 100 caracteres');
+      return;
+    }
+
+    if (sanitizedPassword !== sanitizedConfirmPassword) {
+      setError('As senhas não coincidem');
       return;
     }
 
@@ -45,9 +67,9 @@ const Register: React.FC<RegisterProps> = ({ onRegister }) => {
 
     try {
       await authService.register({
-        name: formData.name,
-        email: formData.email,
-        password: formData.password,
+        name: sanitizedName,
+        email: sanitizedEmail,
+        password: sanitizedPassword,
       });
 
       onRegister?.();

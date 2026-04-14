@@ -1,13 +1,11 @@
 @import '../../styles/variables';
 
-// COMPONENTE: home-page (2 palavras)
 .home-page {
   min-height: 100vh;
   display: flex;
   flex-direction: column;
   transition: background-color $transition-base;
 
-  // VARIANTES
   &.-light {
     background: $bg-light;
   }
@@ -17,7 +15,6 @@
   }
 }
 
-// ELEMENTOS (classes normais, sem >)
 .hero {
   flex: 1;
   display: flex;

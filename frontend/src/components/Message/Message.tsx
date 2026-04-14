@@ -1,6 +1,7 @@
 import React from 'react';
 import Icon from '../Icon/Icon';
 import { useToast } from '../../contexts/ToastContext';
+import { sanitizeResponse } from '../../utils/sanitize';
 import styles from './Message.module.scss';
 import roboAvatarImage from '../../assets/images/robot-avatar.png';
 import iaAvatarImage from '../../assets/images/ia-avatar.png';
@@ -15,11 +16,12 @@ interface MessageProps {
 const Message: React.FC<MessageProps> = ({ message, isUser, userName, timestamp }) => {
   const { showToast } = useToast();
 
+  const sanitizedMessage = sanitizeResponse(message);
+
   const formatTime = (date?: Date) => {
     if (!date) {
       return '';
     }
-
     return new Date(date).toLocaleTimeString('pt-BR', {
       hour: '2-digit',
       minute: '2-digit',
@@ -28,7 +30,7 @@ const Message: React.FC<MessageProps> = ({ message, isUser, userName, timestamp 
 
   const handleCopy = async () => {
     try {
-      await navigator.clipboard.writeText(message);
+      await navigator.clipboard.writeText(sanitizedMessage);
       showToast('Texto copiado! ✅', 'success');
     } catch (err) {
       showToast('Erro ao copiar texto', 'error');
@@ -38,7 +40,7 @@ const Message: React.FC<MessageProps> = ({ message, isUser, userName, timestamp 
   const handleShare = () => {
     if (navigator.share) {
       navigator.share({
-        text: message,
+        text: sanitizedMessage,
       });
     }
   };
@@ -52,7 +54,7 @@ const Message: React.FC<MessageProps> = ({ message, isUser, userName, timestamp 
               <img src={roboAvatarImage} alt="Usuário" />
             </div>
             <p className={styles.text} data-testid="message-text">
-              {message}
+              {sanitizedMessage}
             </p>
             <Icon name="write" size={16} color="#A3A3A8" />
           </div>
@@ -80,7 +82,7 @@ const Message: React.FC<MessageProps> = ({ message, isUser, userName, timestamp 
             </button>
           </div>
         </div>
-        <p className={styles.text}>{message}</p>
+        <p className={styles.text}>{sanitizedMessage}</p>
         <div className={styles.footer}>
           <span className={styles.time}>{formatTime(timestamp)}</span>
         </div>

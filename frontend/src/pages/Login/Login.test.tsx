@@ -62,6 +62,13 @@ describe('Login', () => {
     );
   };
 
+  const fillValidForm = () => {
+    const emailInput = screen.getByTestId('input-email');
+    const passwordInput = screen.getByTestId('input-password');
+    fireEvent.change(emailInput, { target: { value: 'test@example.com' } });
+    fireEvent.change(passwordInput, { target: { value: 'password123' } });
+  };
+
   it('should render back button', () => {
     renderLogin();
     const backButton = screen.getByTestId('mock-icon');
@@ -80,13 +87,9 @@ describe('Login', () => {
     mockLogin.mockResolvedValue({ user: { id: 1, name: 'Test' }, token: 'token' });
 
     renderLogin();
+    fillValidForm();
 
-    const emailInput = screen.getByTestId('input-email');
-    const passwordInput = screen.getByTestId('input-password');
     const submitButton = screen.getByRole('button', { name: /Entrar/i });
-
-    fireEvent.change(emailInput, { target: { value: 'test@example.com' } });
-    fireEvent.change(passwordInput, { target: { value: 'password123' } });
     fireEvent.click(submitButton);
 
     await waitFor(() => {
@@ -94,6 +97,62 @@ describe('Login', () => {
         email: 'test@example.com',
         password: 'password123',
       });
+    });
+  });
+
+  it('should sanitize email before submission', async () => {
+    const mockLogin = authService.login as jest.Mock;
+    mockLogin.mockResolvedValue({ user: { id: 1 }, token: 'token' });
+
+    renderLogin();
+
+    const emailInput = screen.getByTestId('input-email');
+    const passwordInput = screen.getByTestId('input-password');
+    const submitButton = screen.getByRole('button', { name: /Entrar/i });
+
+    fireEvent.change(emailInput, { target: { value: '  USER@Example.com  ' } });
+    fireEvent.change(passwordInput, { target: { value: 'password123' } });
+    fireEvent.click(submitButton);
+
+    await waitFor(() => {
+      expect(mockLogin).toHaveBeenCalledWith({
+        email: 'user@example.com',
+        password: 'password123',
+      });
+    });
+  });
+
+  it('should show error when email is invalid', async () => {
+    renderLogin();
+
+    const emailInput = screen.getByTestId('input-email');
+    const passwordInput = screen.getByTestId('input-password');
+    const submitButton = screen.getByRole('button', { name: /Entrar/i });
+
+    fireEvent.change(emailInput, { target: { value: 'invalid-email' } });
+    fireEvent.change(passwordInput, { target: { value: 'password123' } });
+    fireEvent.click(submitButton);
+
+    await waitFor(() => {
+      const errorElement = screen.getByText(/Por favor, insira um e-mail válido/i);
+      expect(errorElement).not.toBeNull();
+    });
+  });
+
+  it('should show error when password is too short', async () => {
+    renderLogin();
+
+    const emailInput = screen.getByTestId('input-email');
+    const passwordInput = screen.getByTestId('input-password');
+    const submitButton = screen.getByRole('button', { name: /Entrar/i });
+
+    fireEvent.change(emailInput, { target: { value: 'test@example.com' } });
+    fireEvent.change(passwordInput, { target: { value: '12345' } });
+    fireEvent.click(submitButton);
+
+    await waitFor(() => {
+      const errorElement = screen.getByText(/A senha deve ter entre 6 e 100 caracteres/i);
+      expect(errorElement).not.toBeNull();
     });
   });
 
@@ -108,12 +167,8 @@ describe('Login', () => {
       </BrowserRouter>
     );
 
-    const emailInput = screen.getByTestId('input-email');
-    const passwordInput = screen.getByTestId('input-password');
+    fillValidForm();
     const submitButton = screen.getByRole('button', { name: /Entrar/i });
-
-    fireEvent.change(emailInput, { target: { value: 'test@example.com' } });
-    fireEvent.change(passwordInput, { target: { value: 'password123' } });
     fireEvent.click(submitButton);
 
     await waitFor(() => {
@@ -134,7 +189,7 @@ describe('Login', () => {
     const submitButton = screen.getByRole('button', { name: /Entrar/i });
 
     fireEvent.change(emailInput, { target: { value: 'test@example.com' } });
-    fireEvent.change(passwordInput, { target: { value: 'wrong' } });
+    fireEvent.change(passwordInput, { target: { value: 'password123' } });
     fireEvent.click(submitButton);
 
     await waitFor(() => {
@@ -148,13 +203,9 @@ describe('Login', () => {
     mockLogin.mockImplementation(() => new Promise((resolve) => setTimeout(resolve, 100)));
 
     renderLogin();
+    fillValidForm();
 
-    const emailInput = screen.getByTestId('input-email');
-    const passwordInput = screen.getByTestId('input-password');
     const submitButton = screen.getByRole('button', { name: /Entrar/i });
-
-    fireEvent.change(emailInput, { target: { value: 'test@example.com' } });
-    fireEvent.change(passwordInput, { target: { value: 'password123' } });
     fireEvent.click(submitButton);
 
     expect(submitButton.getAttribute('disabled')).toBe('');

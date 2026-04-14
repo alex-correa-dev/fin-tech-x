@@ -3,6 +3,7 @@ import { chatService } from '../../services/chat';
 import Message from '../Message/Message';
 import { IChatMessage } from '../../types';
 import Icon from '../Icon/Icon';
+import { sanitizeInput, sanitizeResponse } from '../../utils/sanitize';
 import styles from './ChatInterface.module.scss';
 
 const ChatInterface: React.FC = () => {
@@ -33,9 +34,11 @@ const ChatInterface: React.FC = () => {
       return;
     }
 
+    const sanitizedInput = sanitizeInput(input);
+
     const userMessage: IChatMessage = {
       id: Date.now(),
-      text: input,
+      text: sanitizedInput,
       isUser: true,
       timestamp: new Date(),
     };
@@ -47,14 +50,16 @@ const ChatInterface: React.FC = () => {
 
     try {
       const answer = await chatService.askQuestion({
-        question: input,
+        question: sanitizedInput,
         userId: user.id,
         userName: user.name,
       });
 
+      const sanitizedAnswer = sanitizeResponse(answer);
+
       const assistantMessage: IChatMessage = {
         id: Date.now() + 1,
-        text: answer,
+        text: sanitizedAnswer,
         isUser: false,
         timestamp: new Date(),
       };
@@ -125,7 +130,14 @@ const ChatInterface: React.FC = () => {
         {!error && suggestedQuestions.length > 0 && (
           <div className={styles['suggestion-list']}>
             {suggestedQuestions.map((question, index) => (
-              <button key={index} onClick={() => setInput(question)} className={styles.chip}>
+              <button
+                key={index}
+                onClick={() => {
+                  const sanitizedQuestion = sanitizeInput(question);
+                  setInput(sanitizedQuestion);
+                }}
+                className={styles.chip}
+              >
                 {question}
               </button>
             ))}
