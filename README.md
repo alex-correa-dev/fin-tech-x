@@ -55,17 +55,17 @@ O frontend foi construído com foco em **componentização**, **manutenibilidade
 
 ```text
 ┌─────────────────────────────────────────────────────┐
-│ COMPONENTES (UI Layer) │
+│ COMPONENTES (UI Layer)                              │
 │ (Login, Register, Dashboard, ChatInterface, Message)│
 ├─────────────────────────────────────────────────────┤
-│ SERVICES (Business Logic Layer) │
-│ (API Service, Auth Service, Chat Service) │
+│ SERVICES (Business Logic Layer)                     │
+│ (API Service, Auth Service, Chat Service)           │
 ├─────────────────────────────────────────────────────┤
-│ CONTEXTS (State Management) │
-│ (Theme Context - Dark/Light Mode) │
+│ CONTEXTS (State Management)                         │
+│ (Theme Context - Dark/Light Mode)                   │
 ├─────────────────────────────────────────────────────┤
-│ TYPES (Type Safety Layer) │
-│ (Interfaces e tipos compartilhados) │
+│ TYPES (Type Safety Layer)                           │
+│ (Interfaces e tipos compartilhados)                 │
 └─────────────────────────────────────────────────────┘
 ```
 
@@ -620,8 +620,8 @@ Este projeto está sob a licença MIT. Veja o arquivo [LICENSE](https://license/
 
 ## 🙏 Agradecimentos
 
-- (Google Gemini AI)[https://deepmind.google/technologies/gemini/] - Modelo de linguagem
-- (Laborit Inc.)[https://deepmind.google/technologies/gemini/] - Desafio técnico
+- [Google Gemini AI](https://deepmind.google/technologies/gemini/) - Modelo de linguagem
+- [Laborit Inc.](https://deepmind.google/technologies/gemini/) - Desafio técnico
 
 ## 📞 Contato
 
