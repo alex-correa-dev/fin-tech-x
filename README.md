@@ -105,55 +105,69 @@ O frontend foi construído com foco em **componentização**, **manutenibilidade
 ```text
 fintechx/
 ├── backend/
-│ ├── src/
-│ │ ├── domain/ # Camada mais interna (regras de negócio)
-│ │ │ ├── entities/ # User, ChatMessage
-│ │ │ ├── repositories/ # Interfaces IUserRepository, IChatRepository
-│ │ │ └── usecases/ # RegisterUser, LoginUser, AskQuestion
-│ │ ├── application/ # Casos de uso da aplicação
-│ │ │ ├── services/ # AuthService, GeminiService
-│ │ │ ├── ports/ # IAuthService, IAIProvider
-│ │ │ └── dtos/ # AuthDTO, ChatDTO
-│ │ ├── infrastructure/ # Implementações concretas
-│ │ │ ├── database/ # PostgresDatabase
-│ │ │ ├── repositories/ # PostgresUserRepository, PostgresChatRepository
-│ │ │ ├── ai/ # GeminiProvider, AIProviderFactory
-│ │ │ ├── security/ # JWTService, BcryptService
-│ │ │ └── http/ # Server, Routes
-│ │ ├── interfaces/ # Adaptadores
-│ │ │ ├── controllers/ # AuthController, ChatController
-│ │ │ ├── middlewares/ # authMiddleware, errorHandler
-│ │ │ └── validators/ # authValidator
-│ │ ├── shared/ # Utilitários
-│ │ │ ├── types/ # Interfaces compartilhadas
-│ │ │ ├── errors/ # AppError
-│ │ │ └── constants/ # Mensagens do sistema
-│ │ └── config/ # Configurações (env, database, gemini)
-│ ├── .env # Variáveis de ambiente
-│ ├── jest.config.js # Configuração do Jest
-│ ├── tsconfig.json # Configuração do TypeScript
-│ └── package.json
+│   ├── src/
+│   │   ├── domain/                     # Camada mais interna (regras de negócio)
+│   │   │   ├── entities/               # User, ChatMessage
+│   │   │   ├── repositories/           # Interfaces IUserRepository, IChatRepository
+│   │   │   └── usecases/               # RegisterUser, LoginUser, AskQuestion
+│   │   ├── application/                # Casos de uso da aplicação
+│   │   │   ├── services/               # AuthService, GeminiService
+│   │   │   ├── ports/                  # IAuthService, IAIProvider
+│   │   │   └── dtos/                   # AuthDTO, ChatDTO
+│   │   ├── infrastructure/             # Implementações concretas
+│   │   │   ├── database/               # PostgresDatabase
+│   │   │   ├── repositories/           # PostgresUserRepository, PostgresChatRepository
+│   │   │   ├── ai/                     # GeminiProvider, AIProviderFactory
+│   │   │   ├── security/               # JWTService, BcryptService
+│   │   │   └── http/                   # Server, Routes
+│   │   ├── interfaces/                 # Adaptadores
+│   │   │   ├── controllers/            # AuthController, ChatController
+│   │   │   ├── middlewares/            # authMiddleware, errorHandler
+│   │   │   └── validators/             # authValidator
+│   │   ├── shared/                     # Utilitários
+│   │   │   ├── types/                  # Interfaces compartilhadas
+│   │   │   ├── errors/                 # AppError
+│   │   │   └── constants/              # Mensagens do sistema
+│   │   └── config/                     # Configurações (env, database, gemini)
+│   ├── .env                            # Variáveis de ambiente
+│   ├── jest.config.js                  # Configuração do Jest
+│   ├── tsconfig.json                   # Configuração do TypeScript
+│   └── package.json
 │
 ├── frontend/
-│ ├── src/
-│ │ ├── components/ # Componentes React (cada um com seu SCSS)
-│ │ │ ├── Login/ # Página de login
-│ │ │ ├── Register/ # Página de registro
-│ │ │ ├── Dashboard/ # Dashboard principal
-│ │ │ ├── ChatInterface/ # Interface do chat
-│ │ │ ├── Message/ # Componente de mensagem
-│ │ │ └── ThemeToggle/ # Alternador de tema
-│ │ ├── contexts/ # Contextos React (ThemeContext)
-│ │ ├── services/ # Serviços (API, Auth, Chat)
-│ │ ├── types/ # Tipos TypeScript compartilhados
-│ │ ├── styles/ # Estilos globais e variáveis
-│ │ ├── App.tsx # Componente principal
-│ │ └── index.tsx # Ponto de entrada
-│ ├── public/ # Arquivos estáticos
-│ ├── .env # Variáveis de ambiente
-│ ├── tsconfig.json # Configuração do TypeScript
-│ └── package.json
-│
+│   ├── src/
+│   │   ├── pages/                      # Páginas da aplicação (componentes de rota)
+│   │   │   ├── Home/                   # Página inicial
+│   │   │   ├── Login/                  # Página de login
+│   │   │   ├── Register/               # Página de registro
+│   │   │   └── Dashboard/              # Dashboard principal
+│   │   ├── components/                 # Componentes reutilizáveis
+│   │   │   ├── Header/                 # Cabeçalho (com tema e autenticação)
+│   │   │   ├── ChatInterface/          # Interface do chat
+│   │   │   ├── Message/                # Componente de mensagem
+│   │   │   ├── Input/                  # Input customizado com ícones
+│   │   │   ├── Icon/                   # Sistema de ícones SVG
+│   │   │   ├── ThemeToggle/            # Alternador de tema
+│   │   │   └── Toast/                  # Notificações toast
+│   │   ├── contexts/                   # Contextos React
+│   │   │   ├── ThemeContext.tsx        # Tema dark/light mode
+│   │   │   └── ToastContext.tsx        # Gerenciamento de notificações
+│   │   ├── services/                   # Serviços (API, Auth, Chat)
+│   │   ├── utils/                      # Utilitários
+│   │   │   └── sanitize.ts             # Sanitização (DOMPurify, XSS, Validator)
+│   │   ├── types/                      # Tipos TypeScript compartilhados
+│   │   ├── styles/                     # Estilos globais e variáveis
+│   │   ├── assets/                     # Imagens e assets estáticos
+│   │   ├── App.tsx                     # Componente principal
+│   │   └── index.tsx                   # Ponto de entrada
+│   ├── cypress/                        # Testes E2E
+│   │   ├── e2e/                        # Especificações dos testes
+│   │   └── support/                    # Comandos customizados
+│   ├── public/                         # Arquivos estáticos
+│   ├── .env                            # Variáveis de ambiente
+│   ├── cypress.config.ts               # Configuração do Cypress
+│   ├── tsconfig.json                   # Configuração do TypeScript
+│   └── package.json
 └── README.md
 ```
 
@@ -658,7 +672,7 @@ Para dúvidas ou sugestões, entre em contato:
 
 ****Email****: alx.rcorrea@gmail.com
 
-****GitHub****: (alex-correa-dev)[https://github.com/alex-correa-dev/]
+****GitHub****: [alex-correa-dev](https://github.com/alex-correa-dev/)
 
 _________________________
 
