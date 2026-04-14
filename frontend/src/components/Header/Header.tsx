@@ -26,7 +26,7 @@ const Header: React.FC<HeaderProps> = ({
 
   const handleLogoutClick = () => {
     onLogout?.();
-    navigate('/login');
+    navigate('/');
   };
 
   return (

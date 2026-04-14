@@ -129,7 +129,7 @@ describe('Header', () => {
       fireEvent.click(logoutButton);
 
       expect(mockOnLogout).toHaveBeenCalledTimes(1);
-      expect(mockNavigate).toHaveBeenCalledWith('/login');
+      expect(mockNavigate).toHaveBeenCalledWith('/');
     });
   });
 
