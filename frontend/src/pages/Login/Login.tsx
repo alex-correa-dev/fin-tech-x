@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import { authService } from '../../services/auth';
+import Input from '../../components/Input/Input';
+import Icon from '../../components/Icon/Icon';
 import styles from './Login.module.scss';
 
 interface LoginProps {
@@ -21,7 +23,6 @@ const Login: React.FC<LoginProps> = ({ onLogin }) => {
 
     try {
       await authService.login({ email, password });
-
       onLogin?.();
       navigate('/dashboard');
     } catch (err) {
@@ -31,57 +32,56 @@ const Login: React.FC<LoginProps> = ({ onLogin }) => {
     }
   };
 
+  const handleGoBack = () => {
+    navigate('/');
+  };
+
   return (
     <div className={styles['login-page']}>
       <div className={styles['login-card']}>
         <div className={styles.header}>
+          <button className={styles.backButton} onClick={handleGoBack}>
+            <Icon name="arrow-left" size={24} color="#666" />
+          </button>
           <h1 className={styles.title}>💰 FinTechX</h1>
-          <p className={styles.subtitle}>Welcome back!</p>
+          <p className={styles.subtitle}>Bem-vindo de volta!</p>
         </div>
 
         <form onSubmit={handleSubmit} className={styles.form}>
           {error && <div className={styles['error-message']}>{error}</div>}
 
-          <div className={styles['field-group']}>
-            <label className={styles.label} htmlFor="email">
-              Email
-            </label>
-            <input
-              id="email"
-              className={styles.input}
-              type="email"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-              placeholder="your@email.com"
-              required
-              disabled={loading}
-            />
-          </div>
+          <Input
+            type="email"
+            id="email"
+            name="email"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+            placeholder="E-mail"
+            disabled={loading}
+            required
+            iconLeft="email"
+          />
 
-          <div className={styles['field-group']}>
-            <label className={styles.label} htmlFor="password">
-              Password
-            </label>
-            <input
-              id="password"
-              className={styles.input}
-              type="password"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-              placeholder="••••••"
-              required
-              disabled={loading}
-            />
-          </div>
+          <Input
+            type="password"
+            id="password"
+            name="password"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+            placeholder="Senha"
+            disabled={loading}
+            required
+            iconLeft="lock"
+          />
 
           <button type="submit" className={styles['submit-btn']} disabled={loading}>
-            {loading ? 'Signing in...' : 'Sign In'}
+            {loading ? 'Entrando...' : 'Entrar'}
           </button>
 
           <p className={styles.footer}>
-            Don't have an account?{' '}
+            Não tem uma conta?{' '}
             <Link className={styles.link} to="/register">
-              Sign up
+              Cadastre-se
             </Link>
           </p>
         </form>
