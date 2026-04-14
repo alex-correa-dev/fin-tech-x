@@ -18,15 +18,30 @@
     animation: fadeIn 0.5s ease;
 
     > .header {
-      text-align: center;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
       margin-bottom: $spacing-xl;
       position: relative;
 
+      > .header-left {
+        flex: 1;
+        display: flex;
+        justify-content: flex-start;
+      }
+
+      > .header-center {
+        flex: 2;
+        text-align: center;
+      }
+
+      > .header-right {
+        flex: 1;
+        display: flex;
+        justify-content: flex-end;
+      }
+
       > .backButton {
-        position: absolute;
-        left: 0;
-        top: 50%;
-        transform: translateY(-50%);
         background: none;
         border: none;
         cursor: pointer;

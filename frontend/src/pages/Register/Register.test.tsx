@@ -44,6 +44,12 @@ jest.mock('../../components/Icon/Icon', () => {
   };
 });
 
+jest.mock('../../components/ThemeToggle/ThemeToggle', () => {
+  return function MockThemeToggle() {
+    return <button data-testid="theme-toggle">Toggle Theme</button>;
+  };
+});
+
 const mockNavigate = jest.fn();
 jest.mock('react-router-dom', () => ({
   ...jest.requireActual('react-router-dom'),
@@ -86,6 +92,12 @@ describe('Register', () => {
     const backButton = screen.getByTestId('mock-icon');
     fireEvent.click(backButton);
     expect(mockNavigate).toHaveBeenCalledWith('/login');
+  });
+
+  it('should render theme toggle button', () => {
+    renderRegister();
+    const themeToggle = screen.getByTestId('theme-toggle');
+    expect(themeToggle).toBeDefined();
   });
 
   it('should submit form with name, email and password', async () => {

@@ -3,6 +3,7 @@ import { useNavigate, Link } from 'react-router-dom';
 import { authService } from '../../services/auth';
 import Input from '../../components/Input/Input';
 import Icon from '../../components/Icon/Icon';
+import ThemeToggle from '../../components/ThemeToggle/ThemeToggle';
 import {
   sanitizeEmail,
   sanitizeString,
@@ -89,11 +90,18 @@ const Register: React.FC<RegisterProps> = ({ onRegister }) => {
     <div className={styles['register-page']}>
       <div className={styles['register-card']}>
         <div className={styles.header}>
-          <button className={styles.backButton} onClick={handleGoBack}>
-            <Icon name="arrow-left" size={24} color="#666" />
-          </button>
-          <h1 className={styles.title}>💰 FinTechX</h1>
-          <p className={styles.subtitle}>Crie sua conta gratuita</p>
+          <div className={styles['header-left']}>
+            <button className={styles.backButton} onClick={handleGoBack}>
+              <Icon name="arrow-left" size={24} color="#666" />
+            </button>
+          </div>
+          <div className={styles['header-center']}>
+            <h1 className={styles.title}>💰 FinTechX</h1>
+            <p className={styles.subtitle}>Crie sua conta gratuita</p>
+          </div>
+          <div className={styles['header-right']}>
+            <ThemeToggle />
+          </div>
         </div>
 
         <form onSubmit={handleSubmit} className={styles.form}>
@@ -109,7 +117,6 @@ const Register: React.FC<RegisterProps> = ({ onRegister }) => {
             disabled={loading}
             required
             iconLeft="user"
-            iconRight="write"
           />
 
           <Input
@@ -122,7 +129,6 @@ const Register: React.FC<RegisterProps> = ({ onRegister }) => {
             disabled={loading}
             required
             iconLeft="email"
-            iconRight="write"
           />
 
           <Input
@@ -135,7 +141,6 @@ const Register: React.FC<RegisterProps> = ({ onRegister }) => {
             disabled={loading}
             required
             iconLeft="lock"
-            iconRight="write"
           />
 
           <Input
@@ -148,7 +153,6 @@ const Register: React.FC<RegisterProps> = ({ onRegister }) => {
             disabled={loading}
             required
             iconLeft="lock"
-            iconRight="write"
           />
 
           <button type="submit" className={styles['submit-btn']} disabled={loading}>

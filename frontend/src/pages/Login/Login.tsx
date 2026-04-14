@@ -3,6 +3,7 @@ import { useNavigate, Link } from 'react-router-dom';
 import { authService } from '../../services/auth';
 import Input from '../../components/Input/Input';
 import Icon from '../../components/Icon/Icon';
+import ThemeToggle from '../../components/ThemeToggle/ThemeToggle';
 import { sanitizeEmail, sanitizeString, isValidEmail, isValidPassword } from '../../utils/sanitize';
 import styles from './Login.module.scss';
 
@@ -18,8 +19,7 @@ const Login: React.FC<LoginProps> = ({ onLogin }) => {
   const navigate = useNavigate();
 
   const handleEmailChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const rawValue = e.target.value;
-    setEmail(rawValue);
+    setEmail(e.target.value);
   };
 
   const handlePasswordChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -67,11 +67,18 @@ const Login: React.FC<LoginProps> = ({ onLogin }) => {
     <div className={styles['login-page']}>
       <div className={styles['login-card']}>
         <div className={styles.header}>
-          <button className={styles.backButton} onClick={handleGoBack}>
-            <Icon name="arrow-left" size={24} color="#666" />
-          </button>
-          <h1 className={styles.title}>💰 FinTechX</h1>
-          <p className={styles.subtitle}>Bem-vindo de volta!</p>
+          <div className={styles['header-left']}>
+            <button className={styles.backButton} onClick={handleGoBack}>
+              <Icon name="arrow-left" size={24} color="#666" />
+            </button>
+          </div>
+          <div className={styles['header-center']}>
+            <h1 className={styles.title}>💰 FinTechX</h1>
+            <p className={styles.subtitle}>Bem-vindo de volta!</p>
+          </div>
+          <div className={styles['header-right']}>
+            <ThemeToggle />
+          </div>
         </div>
 
         <form onSubmit={handleSubmit} className={styles.form}>
@@ -87,7 +94,6 @@ const Login: React.FC<LoginProps> = ({ onLogin }) => {
             disabled={loading}
             required
             iconLeft="email"
-            iconRight="write"
           />
 
           <Input
@@ -100,7 +106,6 @@ const Login: React.FC<LoginProps> = ({ onLogin }) => {
             disabled={loading}
             required
             iconLeft="lock"
-            iconRight="write"
           />
 
           <button type="submit" className={styles['submit-btn']} disabled={loading}>
