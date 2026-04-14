@@ -572,13 +572,41 @@ Push na branch main → GitHub Actions → Testes → Build → Deploy Render + 
 
 ### 🎯 Decisões Técnicas
 
-| Decisão | Motivo |
-|---------|--------|
-| **Vercel para Frontend** | Integração nativa com React, deploy automático a cada push, preview deployments para PRs |
-| **Render para Backend** | Suporte a TypeScript, PostgreSQL integrado, free tier generoso |
-| **GitHub Actions** | CI/CD gratuito, integração nativa com repositório, 2.000 minutos/mês |
-| **Deploy automático** | Apenas na branch `main` após aprovação de todos os testes |
-| **Health Check** | Endpoint `/health` para monitoramento do backend |
+#### Escopo do Projeto
+
+Baseado na descrição da tarefa no PDF _Development Assessment (Dev Front).pdf_, o foco principal é o **chatbot inteligente**. No entanto, para suportar uma experiência completa e realista, foram implementadas também:
+
+- **Tela de Login** – permite que usuários existentes acessem o sistema
+- **Tela de Registro** – permite criação de novas contas
+- **Backend de Autenticação** – construído com **Clean Architecture**, garantindo separação de responsabilidades, testabilidade e facilidade de manutenção
+
+#### Telas Não Implementadas
+
+O Figma apresenta outras telas, como **Profile**, **Preferências**, **Alteração de Dados** e **Convite de Amigos** (Refer A Friend). Estas **não foram implementadas** pelos seguintes motivos:
+
+1. **Fuga do escopo inicial** – O desafio proposto tem como foco principal o chatbot
+2. **Informações insuficientes** – Não há especificações claras sobre:
+   - Contratos de API para o backend
+   - Comportamento esperado no frontend
+   - Fluxos de dados e regras de negócio
+
+Sem essas informações, a implementação seria baseada em suposições, o que poderia gerar inconsistências e retrabalho.
+
+#### Segurança
+
+A camada de segurança foi implementada **prioritariamente no frontend** utilizando:
+
+- **DOMPurify** – Sanitização de HTML e prevenção de XSS
+- **XSS library** – Proteção adicional contra injeção de scripts maliciosos
+- **Validator** – Validação e sanitização de entradas (email, tamanho de strings)
+
+**Decisão consciente:** Embora a segurança ideal deva existir em ambas as camadas, optou-se por focar no frontend porque:
+
+- O backend implementa barreiras conhecidas (como CORS)
+- O escopo do desafio é frontend
+- A complexidade de implementar sanitização completa no backend fugiria ao tempo disponível
+
+> ⚠️ **Nota:** Em um cenário de produção, a sanitização também deve ser aplicada no backend, utilizando ferramentas como `express-validator`.
 
 ✅ Status: Produção 🎉
 
