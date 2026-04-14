@@ -14,6 +14,7 @@ interface InputProps {
   iconLeft?: IconName;
   iconRight?: IconName;
   onIconRightClick?: () => void;
+  testId?: string;
 }
 
 const Input: React.FC<InputProps> = ({
@@ -28,6 +29,7 @@ const Input: React.FC<InputProps> = ({
   iconLeft,
   iconRight,
   onIconRightClick,
+  testId,
 }) => {
   const [inputType, setInputType] = useState(type);
 
@@ -40,7 +42,7 @@ const Input: React.FC<InputProps> = ({
   };
 
   return (
-    <div className={styles.inputWrapper}>
+    <div className={styles.inputWrapper} data-testid={testId}>
       {iconLeft && (
         <span className={styles.iconLeft}>
           <Icon name={iconLeft} size={20} color="#CBCBCB" />
@@ -56,6 +58,7 @@ const Input: React.FC<InputProps> = ({
         placeholder={placeholder}
         disabled={disabled}
         required={required}
+        data-testid={`input-${name}`}
       />
       {iconRight && (
         <span className={styles.iconRight} onClick={handleRightIconClick}>

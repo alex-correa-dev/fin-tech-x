@@ -68,7 +68,7 @@ const Login: React.FC<LoginProps> = ({ onLogin }) => {
       <div className={styles['login-card']}>
         <div className={styles.header}>
           <div className={styles['header-left']}>
-            <button className={styles.backButton} onClick={handleGoBack}>
+            <button className={styles.backButton} onClick={handleGoBack} data-testid="back-button">
               <Icon name="arrow-left" size={24} color="#666" />
             </button>
           </div>
@@ -92,8 +92,8 @@ const Login: React.FC<LoginProps> = ({ onLogin }) => {
             onChange={handleEmailChange}
             placeholder="E-mail"
             disabled={loading}
-            required
             iconLeft="email"
+            testId="input-email-wrapper"
           />
 
           <Input
@@ -104,8 +104,8 @@ const Login: React.FC<LoginProps> = ({ onLogin }) => {
             onChange={handlePasswordChange}
             placeholder="Senha"
             disabled={loading}
-            required
             iconLeft="lock"
+            testId="input-password-wrapper"
           />
 
           <button type="submit" className={styles['submit-btn']} disabled={loading}>

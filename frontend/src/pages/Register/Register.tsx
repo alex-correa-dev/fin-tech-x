@@ -91,7 +91,7 @@ const Register: React.FC<RegisterProps> = ({ onRegister }) => {
       <div className={styles['register-card']}>
         <div className={styles.header}>
           <div className={styles['header-left']}>
-            <button className={styles.backButton} onClick={handleGoBack}>
+            <button className={styles.backButton} onClick={handleGoBack} data-testid="back-button">
               <Icon name="arrow-left" size={24} color="#666" />
             </button>
           </div>
@@ -104,8 +104,12 @@ const Register: React.FC<RegisterProps> = ({ onRegister }) => {
           </div>
         </div>
 
-        <form onSubmit={handleSubmit} className={styles.form}>
-          {error && <div className={styles['error-message']}>{error}</div>}
+        <form onSubmit={handleSubmit} className={styles.form} data-testid="register-form">
+          {error && (
+            <div className={styles['error-message']} data-testid="error-message">
+              {error}
+            </div>
+          )}
 
           <Input
             type="text"
@@ -115,7 +119,6 @@ const Register: React.FC<RegisterProps> = ({ onRegister }) => {
             onChange={handleChange}
             placeholder="Nome completo"
             disabled={loading}
-            required
             iconLeft="user"
           />
 
@@ -127,7 +130,6 @@ const Register: React.FC<RegisterProps> = ({ onRegister }) => {
             onChange={handleChange}
             placeholder="E-mail"
             disabled={loading}
-            required
             iconLeft="email"
           />
 
@@ -139,7 +141,6 @@ const Register: React.FC<RegisterProps> = ({ onRegister }) => {
             onChange={handleChange}
             placeholder="Senha (mínimo 6 caracteres)"
             disabled={loading}
-            required
             iconLeft="lock"
           />
 
@@ -151,7 +152,6 @@ const Register: React.FC<RegisterProps> = ({ onRegister }) => {
             onChange={handleChange}
             placeholder="Confirmar senha"
             disabled={loading}
-            required
             iconLeft="lock"
           />
 

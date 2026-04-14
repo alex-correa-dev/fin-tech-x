@@ -350,6 +350,35 @@ src/
 - ✅ Contexts - Gerenciamento de estado (ThemeContext)
 - ✅ Integração - Fluxos completos (login → dashboard → chat)
 
+### 🧪 Testes End-to-End (E2E)
+
+Os testes E2E foram implementados com **Cypress** para validar os fluxos completos da aplicação.
+
+#### Cobertura de Testes
+
+| Página | Cenários testados |
+|--------|-------------------|
+| **Header** | Logo, tema dark/light, botão de login, navegação |
+| **Home** | Renderização dos elementos principais, navegação para login |
+| **Login** | Validações de email/senha, navegação |
+| **Register** | Validações de campos, navegação |
+| **Chat** | Envio de mensagens, sugestões, retry |
+
+#### Estratégia de Mock
+
+Todas as chamadas de API são **mockadas** nos testes E2E utilizando `cy.intercept()`, garantindo:
+- Independência do backend
+- Testes rápidos e determinísticos
+- Simulação de cenários de sucesso e erro
+
+#### Execução
+
+```bash
+cd frontend
+npm run cypress:open      # Modo interativo
+npm run test:e2e          # Modo headless (com servidor)
+```
+
 ### 🎯 Funcionalidades
 
 #### Autenticação
