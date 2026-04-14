@@ -2,19 +2,21 @@ import React, { useState, useEffect, useRef } from 'react';
 import { chatService } from '../../services/chat';
 import Message from '../Message/Message';
 import { IChatMessage } from '../../types';
+import Icon from '../Icon/Icon';
 import styles from './ChatInterface.module.scss';
 
 const ChatInterface: React.FC = () => {
   const [messages, setMessages] = useState<IChatMessage[]>([
     {
       id: 1,
-      text: 'Olá! Sou o assistente inteligente da FinTechX, alimentado por Google Gemini AI. Como posso ajudar você hoje? 😊',
+      text: 'Olá! Como posso ajudar você hoje? 😊',
       isUser: false,
       timestamp: new Date(),
     },
   ]);
   const [input, setInput] = useState<string>('');
   const [loading, setLoading] = useState<boolean>(false);
+  const [error, setError] = useState<string | null>(null);
   const messagesEndRef = useRef<HTMLDivElement>(null);
   const user = JSON.parse(localStorage.getItem('user') || '{}');
 
@@ -41,6 +43,7 @@ const ChatInterface: React.FC = () => {
     setMessages((prev) => [...prev, userMessage]);
     setInput('');
     setLoading(true);
+    setError(null);
 
     try {
       const answer = await chatService.askQuestion({
@@ -57,20 +60,9 @@ const ChatInterface: React.FC = () => {
       };
 
       setMessages((prev) => [...prev, assistantMessage]);
-    } catch (error) {
-      console.error('Erro:', error);
-
-      const errorMessage: IChatMessage = {
-        id: Date.now() + 1,
-        text:
-          error instanceof Error
-            ? error.message
-            : 'Desculpe, tive um problema. Tente novamente mais tarde. 😔',
-        isUser: false,
-        timestamp: new Date(),
-      };
-
-      setMessages((prev) => [...prev, errorMessage]);
+    } catch (err) {
+      console.error('Erro:', err);
+      setError(err instanceof Error ? err.message : 'Erro ao processar pergunta');
     } finally {
       setLoading(false);
     }
@@ -84,33 +76,26 @@ const ChatInterface: React.FC = () => {
   };
 
   const suggestedQuestions: string[] = [
-    '📅 Quais são os horários de atendimento?',
-    '📍 Onde estão localizados os escritórios?',
-    '👥 Quem fundou a FinTechX?',
-    '🔒 Como vocês protegem meus dados?',
-    '⚠️ Recebi e-mail suspeito, o que fazer?',
-    '📚 Como aprender sobre investimentos?',
-    '🎁 Como receber promoções e descontos?',
+    'Quais são os horários de atendimento?',
+    'Onde estão localizados os escritórios?',
+    'Quem fundou a FinTechX?',
+    'Como vocês protegem meus dados?',
+    'Recebi e-mail suspeito, o que fazer?',
+    'Como aprender sobre investimentos?',
+    'Como receber promoções?',
   ];
 
+  const handleRetry = () => {
+    if (error) {
+      setError(null);
+      sendMessage();
+    }
+  };
+
   return (
-    <div className={`${styles['chat-interface']} ${loading ? styles['-loading'] : ''}`}>
+    <div className={styles['chat-interface']}>
       <div className={styles.header}>
-        <div className={styles['header-content']}>
-          <div className={styles.brand}>
-            <span className={styles.icon}>🤖</span>
-            <div className={styles.info}>
-              <h2 className={styles.title}>Assistente Inteligente FinTechX</h2>
-              <p className={styles.subtitle}>
-                Powered by Google Gemini AI • Atendimento personalizado 24/7
-              </p>
-            </div>
-          </div>
-          <div className={styles['status-indicator']}>
-            <span className={styles.dot}></span>
-            <span>Online</span>
-          </div>
-        </div>
+        <h1 className={styles.title}>BrainBox</h1>
       </div>
 
       <div className={styles.messages}>
@@ -137,13 +122,22 @@ const ChatInterface: React.FC = () => {
       </div>
 
       <div className={styles['input-area']}>
-        <div className={styles['suggestion-list']}>
-          {suggestedQuestions.map((question, index) => (
-            <button key={index} onClick={() => setInput(question)} className={styles.chip}>
-              {question}
-            </button>
-          ))}
-        </div>
+        {!error && suggestedQuestions.length > 0 && (
+          <div className={styles['suggestion-list']}>
+            {suggestedQuestions.map((question, index) => (
+              <button key={index} onClick={() => setInput(question)} className={styles.chip}>
+                {question}
+              </button>
+            ))}
+          </div>
+        )}
+
+        {error && (
+          <button className={styles['retry-btn']} onClick={handleRetry}>
+            <Icon name="retry" size={16} color="#616161" />
+            <span>Gerar Resposta Novamente</span>
+          </button>
+        )}
 
         <div className={styles['input-wrapper']}>
           <textarea
@@ -151,16 +145,17 @@ const ChatInterface: React.FC = () => {
             value={input}
             onChange={(e) => setInput(e.target.value)}
             onKeyPress={handleKeyPress}
-            placeholder="Digite sua pergunta..."
-            rows={2}
+            placeholder="Enviar uma mensagem."
+            rows={1}
             disabled={loading}
           />
           <button
             onClick={sendMessage}
             disabled={loading || !input.trim()}
             className={styles['send-btn']}
+            data-testid="send-button"
           >
-            {loading ? '...' : 'Enviar →'}
+            <Icon name="send" size={20} color="#A3A3A8" />
           </button>
         </div>
       </div>

@@ -1,0 +1,52 @@
+@import '../../styles/variables';
+
+.toast {
+  position: fixed;
+  bottom: 24px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px 24px;
+  border-radius: 12px;
+  background: #2F2F2F;
+  color: white;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  z-index: 1100;
+  animation: slideUp 0.3s ease;
+
+  &.success {
+    background: #4CAF50;
+  }
+
+  &.error {
+    background: #f44336;
+  }
+
+  &.info {
+    background: #2196F3;
+  }
+
+  .icon {
+    font-size: 18px;
+  }
+
+  .message {
+    font-family: 'Urbanist', sans-serif;
+    font-weight: 500;
+    font-size: 14px;
+    line-height: 160%;
+  }
+}
+
+@keyframes slideUp {
+  from {
+    opacity: 0;
+    transform: translateX(-50%) translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(-50%) translateY(0);
+  }
+}

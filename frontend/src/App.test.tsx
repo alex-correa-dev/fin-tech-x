@@ -42,6 +42,11 @@ jest.mock('./contexts/ThemeContext', () => ({
   useTheme: () => ({ theme: 'light', toggleTheme: jest.fn(), setTheme: jest.fn() }),
 }));
 
+jest.mock('./contexts/ToastContext', () => ({
+  ToastProvider: ({ children }: { children: React.ReactNode }) => <>{children}</>,
+  useToast: () => ({ showToast: jest.fn() }),
+}));
+
 jest.mock('react-router-dom', () => ({
   BrowserRouter: ({ children }: { children: React.ReactNode }) => <>{children}</>,
   Routes: ({ children }: { children: React.ReactNode }) => <>{children}</>,
