@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import { authService } from '../../services/auth';
+import Input from '../../components/Input/Input';
+import Icon from '../../components/Icon/Icon';
 import styles from './Register.module.scss';
 
 interface RegisterProps {
@@ -30,14 +32,12 @@ const Register: React.FC<RegisterProps> = ({ onRegister }) => {
     setError('');
 
     if (formData.password !== formData.confirmPassword) {
-      setError('Passwords do not match');
-
+      setError('As senhas não coincidem');
       return;
     }
 
     if (formData.password.length < 6) {
-      setError('Password must be at least 6 characters');
-
+      setError('A senha deve ter no mínimo 6 caracteres');
       return;
     }
 
@@ -53,99 +53,90 @@ const Register: React.FC<RegisterProps> = ({ onRegister }) => {
       onRegister?.();
       navigate('/dashboard');
     } catch (err) {
-      setError(err instanceof Error ? err.message : 'Error during registration');
+      setError(err instanceof Error ? err.message : 'Erro durante o cadastro');
     } finally {
       setLoading(false);
     }
+  };
+
+  const handleGoBack = () => {
+    navigate('/login');
   };
 
   return (
     <div className={styles['register-page']}>
       <div className={styles['register-card']}>
         <div className={styles.header}>
+          <button className={styles.backButton} onClick={handleGoBack}>
+            <Icon name="arrow-left" size={24} color="#666" />
+          </button>
           <h1 className={styles.title}>💰 FinTechX</h1>
-          <p className={styles.subtitle}>Create your free account</p>
+          <p className={styles.subtitle}>Crie sua conta gratuita</p>
         </div>
 
         <form onSubmit={handleSubmit} className={styles.form}>
           {error && <div className={styles['error-message']}>{error}</div>}
 
-          <div className={styles['field-group']}>
-            <label className={styles.label} htmlFor="name">
-              Full name
-            </label>
-            <input
-              id="name"
-              name="name"
-              className={styles.input}
-              type="text"
-              value={formData.name}
-              onChange={handleChange}
-              placeholder="Your name"
-              required
-              disabled={loading}
-            />
-          </div>
+          <Input
+            type="text"
+            id="name"
+            name="name"
+            value={formData.name}
+            onChange={handleChange}
+            placeholder="Nome completo"
+            disabled={loading}
+            required
+            iconLeft="user"
+            iconRight="write"
+          />
 
-          <div className={styles['field-group']}>
-            <label className={styles.label} htmlFor="email">
-              Email
-            </label>
-            <input
-              id="email"
-              name="email"
-              className={styles.input}
-              type="email"
-              value={formData.email}
-              onChange={handleChange}
-              placeholder="your@email.com"
-              required
-              disabled={loading}
-            />
-          </div>
+          <Input
+            type="email"
+            id="email"
+            name="email"
+            value={formData.email}
+            onChange={handleChange}
+            placeholder="E-mail"
+            disabled={loading}
+            required
+            iconLeft="email"
+            iconRight="write"
+          />
 
-          <div className={styles['field-group']}>
-            <label className={styles.label} htmlFor="password">
-              Password
-            </label>
-            <input
-              id="password"
-              name="password"
-              className={styles.input}
-              type="password"
-              value={formData.password}
-              onChange={handleChange}
-              placeholder="Minimum 6 characters"
-              required
-              disabled={loading}
-            />
-          </div>
+          <Input
+            type="password"
+            id="password"
+            name="password"
+            value={formData.password}
+            onChange={handleChange}
+            placeholder="Senha (mínimo 6 caracteres)"
+            disabled={loading}
+            required
+            iconLeft="lock"
+            iconRight="write"
+          />
 
-          <div className={styles['field-group']}>
-            <label className={styles.label} htmlFor="confirmPassword">
-              Confirm password
-            </label>
-            <input
-              id="confirmPassword"
-              name="confirmPassword"
-              className={styles.input}
-              type="password"
-              value={formData.confirmPassword}
-              onChange={handleChange}
-              placeholder="Confirm your password"
-              required
-              disabled={loading}
-            />
-          </div>
+          <Input
+            type="password"
+            id="confirmPassword"
+            name="confirmPassword"
+            value={formData.confirmPassword}
+            onChange={handleChange}
+            placeholder="Confirmar senha"
+            disabled={loading}
+            required
+            iconLeft="lock"
+            iconRight="write"
+          />
 
           <button type="submit" className={styles['submit-btn']} disabled={loading}>
-            {loading ? 'Creating account...' : 'Sign Up'}
+            {loading ? 'Cadastrando...' : 'Cadastrar'}
           </button>
 
           <p className={styles.footer}>
-            Already have an account?{' '}
+            Já tem uma conta?{' '}
             <Link className={styles.link} to="/login">
-              Sign in
+              Faça login
             </Link>
           </p>
         </form>

@@ -60,6 +60,7 @@ const Login: React.FC<LoginProps> = ({ onLogin }) => {
             disabled={loading}
             required
             iconLeft="email"
+            iconRight="write"
           />
 
           <Input
@@ -72,6 +73,7 @@ const Login: React.FC<LoginProps> = ({ onLogin }) => {
             disabled={loading}
             required
             iconLeft="lock"
+            iconRight="write"
           />
 
           <button type="submit" className={styles['submit-btn']} disabled={loading}>
