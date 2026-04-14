@@ -5,11 +5,11 @@
   cursor: inherit;
   flex-shrink: 0;
   line-height: 0;
-  
+
   &[role='button'] {
     cursor: pointer;
   }
-  
+
   svg {
     display: block;
   }
