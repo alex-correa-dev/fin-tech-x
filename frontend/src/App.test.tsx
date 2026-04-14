@@ -13,19 +13,25 @@ jest.mock('./services/auth', () => ({
   },
 }));
 
-jest.mock('./components/Login/Login', () => {
+jest.mock('./pages/Home/Home', () => {
+  return function MockHome() {
+    return <div data-testid="home-component">Home Component Mock</div>;
+  };
+});
+
+jest.mock('./pages/Login/Login', () => {
   return function MockLogin() {
     return <div data-testid="login-component">Login Component Mock</div>;
   };
 });
 
-jest.mock('./components/Register/Register', () => {
+jest.mock('./pages/Register/Register', () => {
   return function MockRegister() {
     return <div data-testid="register-component">Register Component Mock</div>;
   };
 });
 
-jest.mock('./components/Dashboard/Dashboard', () => {
+jest.mock('./pages/Dashboard/Dashboard', () => {
   return function MockDashboard() {
     return <div data-testid="dashboard-component">Dashboard Component Mock</div>;
   };
@@ -48,6 +54,13 @@ describe('App', () => {
     jest.clearAllMocks();
   });
 
+  it('should render home component at root path', () => {
+    render(<App />);
+
+    const homeElement = screen.queryByTestId('home-component');
+    expect(homeElement).not.toBeNull();
+  });
+
   it('should render login component when user is not authenticated', () => {
     const mockIsAuthenticated = authService.isAuthenticated as jest.Mock;
     mockIsAuthenticated.mockReturnValue(false);
@@ -56,20 +69,15 @@ describe('App', () => {
 
     const loginElement = screen.queryByTestId('login-component');
     expect(loginElement).not.toBeNull();
-    expect(loginElement).toBeDefined();
   });
 
   it('should render dashboard component when user is authenticated', () => {
     const mockIsAuthenticated = authService.isAuthenticated as jest.Mock;
-    const mockGetCurrentUser = authService.getCurrentUser as jest.Mock;
-
     mockIsAuthenticated.mockReturnValue(true);
-    mockGetCurrentUser.mockReturnValue({ id: 1, name: 'Test User', email: 'test@test.com' });
 
     render(<App />);
 
     const dashboardElement = screen.queryByTestId('dashboard-component');
     expect(dashboardElement).not.toBeNull();
-    expect(dashboardElement).toBeDefined();
   });
 });

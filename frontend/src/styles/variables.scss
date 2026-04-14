@@ -50,14 +50,14 @@
   --gray: #cbd5e0;
   --gray-light: #a0aec0;
   --light-gray: #4a5568;
-  --white: #1a202c;
-  --bg-light: #0f172a;
-  --bg-dark: #0a0f1a;
+  --white: #141718;
+  --bg-light: #141718;
+  --bg-dark: #0f1115;
 
   // Dark mode surface colors
-  --surface-primary: #1e293b;
-  --surface-secondary: #0f172a;
-  --surface-tertiary: #334155;
+  --surface-primary: #1a1d22;
+  --surface-secondary: #141718;
+  --surface-tertiary: #1f2228;
 
   // Dark mode text colors
   --text-primary: #f1f5f9;
@@ -65,8 +65,8 @@
   --text-disabled: #64748b;
 
   // Dark mode border colors
-  --border-light: #334155;
-  --border-medium: #475569;
+  --border-light: #2d3138;
+  --border-medium: #3a3f47;
 }
 
 // Spacing
@@ -171,3 +171,12 @@ $surface-tertiary: var(--surface-tertiary);
 // Border colors
 $border-light: var(--border-light);
 $border-medium: var(--border-medium);
+
+// Z-index
+$z-dropdown: 1000;
+$z-sticky: 1020;
+$z-fixed: 1030;
+$z-modal-backdrop: 1040;
+$z-modal: 1050;
+$z-popover: 1060;
+$z-tooltip: 1070;

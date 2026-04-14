@@ -1,0 +1,13 @@
+@import '../../styles/variables';
+
+.dashboard {
+  min-height: 100vh;
+  background: $bg-light;
+  transition: background-color $transition-base;
+}
+
+.main {
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: $spacing-md;
+}

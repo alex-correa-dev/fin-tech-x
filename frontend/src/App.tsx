@@ -1,9 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 import { ThemeProvider } from './contexts/ThemeContext';
-import Login from './components/Login/Login';
-import Register from './components/Register/Register';
-import Dashboard from './components/Dashboard/Dashboard';
+import Home from './pages/Home/Home';
+import Login from './pages/Login/Login';
+import Register from './pages/Register/Register';
+import Dashboard from './pages/Dashboard/Dashboard';
 import { authService } from './services/auth';
 import './index.scss';
 
@@ -26,6 +27,7 @@ const App: React.FC = () => {
     <ThemeProvider>
       <BrowserRouter>
         <Routes>
+          <Route path="/" element={<Home />} />
           <Route
             path="/login"
             element={
@@ -44,7 +46,6 @@ const App: React.FC = () => {
               isAuthenticated ? <Dashboard onLogout={handleLogout} /> : <Navigate to="/login" />
             }
           />
-          <Route path="/" element={<Navigate to="/login" />} />
         </Routes>
       </BrowserRouter>
     </ThemeProvider>
